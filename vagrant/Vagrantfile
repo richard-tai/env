@@ -13,11 +13,11 @@ Vagrant.configure("2") do |config|
 			# 设置端口映射
 			config.vm.network "forwarded_port", id: "ssh", guest: 22, host: "#{port_num}".to_i, host_ip: "127.0.0.1", auto_correct: true
             # 设置主机与虚拟机的共享目录
-            node.vm.synced_folder "../vagrant_share", "/home/vagrant/share"
+            node.vm.synced_folder "./vagrant_shared_folder", "/home/vagrant/share"
             # VirtaulBox相关配置
             node.vm.provider "virtualbox" do |v|
                 # 设置虚拟机的名称
-                v.name = "node#{i}"
+                v.name = "base-node#{i}"
                 # 设置虚拟机的内存大小
                 v.memory = 1024
                 # 设置虚拟机的CPU个数

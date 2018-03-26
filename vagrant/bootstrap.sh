@@ -1,11 +1,12 @@
 #!/usr/bin/env bash
 
+
 add-apt-repository ppa:jonathonf/vim -y
 add-apt-repository ppa:openjdk-r/ppa -y
 apt update
 
 apt-get install -y vim
-apt-get install openjdk-8-jdk
+apt-get install -y openjdk-8-jdk
 
 apt-get install -y git
 apt-get install -y curl
@@ -13,6 +14,7 @@ apt-get install -y tree
 
 apt-get install -y cmake
 apt-get install -y clang
+
 apt-get install -y python-dev
 apt-get install -y python3-dev
 

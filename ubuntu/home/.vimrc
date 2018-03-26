@@ -95,7 +95,11 @@ Plugin 'scrooloose/nerdcommenter' "快速注释
 "自动补全
 Plugin 'Shougo/neocomplcache.vim'
 let g:ycm_server_python_interpreter='/usr/bin/python'
-let g:ycm_global_ycm_extra_conf='~/.vim/.ycm_extra_conf.py'
+"cd .vim/bundle/YouCompleteMe
+"./install.sh --clang-completer
+"let g:ycm_global_ycm_extra_conf='~/.vim/bundle/YouCompleteMe/third_party/ycmd/examples/.ycm_extra_conf.py'
+let g:ycm_global_ycm_extra_conf='~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
+let g:ycm_collect_identifiers_from_tag_files = 1 "使用ctags生成的tags文件"
 
 Plugin 'rdnetto/YCM-Generator'
 
@@ -140,7 +144,7 @@ let g:ctrlp_use_caching = 1
 "---- ycm error fix ----
 "http://www.jianshu.com/p/d908ce81017a
 "1. Check code completion
-"	cd ~/.vim/bundle/YouCompleteMe; git status; it submodule update --init --recursive
+"	cd ~/.vim/bundle/YouCompleteMe; git status; git submodule update --init --recursive
 "2. Install dependency
 "	sudo apt-get install llvm-3.9 clang-3.9 libclang-3.9-dev libboost-all-dev
 "	sudo apt-get install cmake python3-dev

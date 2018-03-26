@@ -1,8 +1,11 @@
 #!/usr/bin/env bash
 
-sudo add-apt-repository ppa:jonathonf/vim -y
-sudo apt update
+add-apt-repository ppa:jonathonf/vim -y
+add-apt-repository ppa:openjdk-r/ppa -y
+apt update
+
 apt-get install -y vim
+apt-get install openjdk-8-jdk
 
 apt-get install -y git
 apt-get install -y curl
@@ -19,9 +22,9 @@ apt-get install -y tmux
 apt-get install -y ctags
 apt-get install -y cscope
 
-# 安装docker 1.11.0
+# 安装docker
 if [ ! -f /usr/bin/docker ]; then
-	wget -qO- https://get.docker.com/ | sed 's/docker-engine/docker-engine=1.11.0-0~trusty/' | sh
+	wget -qO- https://get.docker.com/ | sh
 	usermod -aG docker vagrant
 fi
 
@@ -53,5 +56,4 @@ if [ ! -f  ${home_dir}/.tmux.conf ]; then
 fi
 
 chown -R vagrant:vagrant ${home_dir}/.vim
-
 

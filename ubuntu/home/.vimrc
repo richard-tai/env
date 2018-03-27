@@ -33,11 +33,12 @@ let g:syntastic_cpp_compiler_options = ' -std=c++11 -stdlib=libc++'
 "map <f4> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR><CR>  
 
 "第一个命令里的分号是必不可少的。这个命令让vim首先在当前目录里寻找tags文件，如果没有找到  
-"tags文件，或者没有找到对应的目标，就到父目录 中查找，一直向上递归。因为tags文件中记录的>路径总是相对于tags文件所在的路径，所以要使用第二个设置项来改变vim的当前目录。   
+"tags文件，或者没有找到对应的目标，就到父目录 中查找，一直向上递归。
+"因为tags文件中记录的>路径总是相对于tags文件所在的路径，所以要使用第二个设置项来改变vim的当前目录。   
 "set tags=tags;  
 "set autochdir  
 "绝对路径  
-"set tags=/home/long/workstation/ganguio/uio-8139d-driver/V7/tags,/home/long/linux-3.7.3/drivers/uio/tags 
+"set tags=/path/to/tags 
 
 "==== cscope ===================================================================
 "set cscopequickfix=s-,c-,d-,i-,t-,e-    
@@ -96,9 +97,8 @@ Plugin 'scrooloose/nerdcommenter' "快速注释
 Plugin 'Shougo/neocomplcache.vim'
 let g:ycm_server_python_interpreter='/usr/bin/python'
 "---- ycm error fix ----
-"cd .vim/bundle/YouCompleteMe
-"./install.sh --clang-completer
-"let g:ycm_global_ycm_extra_conf='~/.vim/bundle/YouCompleteMe/third_party/ycmd/examples/.ycm_extra_conf.py'
+" 1. cd .vim/bundle/YouCompleteMe
+" 2. ./install.sh --clang-completer
 let g:ycm_global_ycm_extra_conf='~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
 let g:ycm_collect_identifiers_from_tag_files = 1 "使用ctags生成的tags文件"
 

@@ -1,8 +1,9 @@
 Vagrant.configure("2") do |config|
-    (1..1).each do |i|
-		guest_ip_num = 10 + i
-		guest_ip = "192.168.69.#{guest_ip_num}"
-		port_num = 2230 + i
+    N = 1
+    (1..N).each do |i|
+        guest_ip_num = 10 + i
+        guest_ip = "192.168.69.#{guest_ip_num}"
+        port_num = 2230 + i
         config.vm.define "base-node#{i}" do |node|
             # 设置虚拟机的Box
             node.vm.box = "ubuntu/trusty64"
@@ -10,8 +11,8 @@ Vagrant.configure("2") do |config|
             node.vm.hostname="base-node#{i}"
             # 设置虚拟机的IP
             node.vm.network "private_network", ip: "#{guest_ip}"
-			# 设置端口映射
-			config.vm.network "forwarded_port", id: "ssh", guest: 22, host: "#{port_num}".to_i, host_ip: "127.0.0.1", auto_correct: true
+            # 设置端口映射
+            config.vm.network "forwarded_port", id: "ssh", guest: 22, host: "#{port_num}".to_i, host_ip: "127.0.0.1", auto_correct: true
             # 设置主机与虚拟机的共享目录
             node.vm.synced_folder "./vagrant_shared_folder", "/home/vagrant/share"
             # VirtaulBox相关配置
@@ -25,10 +26,10 @@ Vagrant.configure("2") do |config|
             end
 
             # 使用shell脚本进行软件安装和配置
-			config.vm.provision "shell", path: "bootstrap.sh"
+            config.vm.provision "shell", path: "bootstrap.sh"
             #node.vm.provision "shell", inline: <<-SHELL
-			#	apt-get update
-			#SHELL
+            #    apt-get update
+            #SHELL
         end
     end
 end

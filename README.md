@@ -1,6 +1,6 @@
 # env
 
-## stop
+## build box step
 1. cd env/vagrant
 2. vagrant up --provision
 3. vagrant ssh

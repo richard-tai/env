@@ -1,6 +1,6 @@
 Vagrant.configure("2") do |config|
-    N = 1
-    (1..N).each do |i|
+    num = 1
+    (1..num).each do |i|
         guest_ip_num = 10 + i
         guest_ip = "192.168.69.#{guest_ip_num}"
         port_num = 2230 + i

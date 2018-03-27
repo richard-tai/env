@@ -3,6 +3,7 @@
 user=vagrant
 home_dir=/home/${user}/
 
+# Install package
 add-apt-repository ppa:jonathonf/vim -y
 add-apt-repository ppa:openjdk-r/ppa -y
 apt update
@@ -10,7 +11,10 @@ apt update
 apt-get install -y vim
 
 apt-get install -y openjdk-8-jdk
-cat "export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64/bin" >> ${home_dir}/.bashrc
+echo "export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64" >> ${home_dir}/.bashrc
+
+apt-get install -y python-dev
+apt-get install -y python3-dev
 
 apt-get install -y ssh
 
@@ -18,11 +22,12 @@ apt-get install -y git
 apt-get install -y curl
 apt-get install -y tree
 
-apt-get install -y cmake
+apt-get install -y gcc
+apt-get install -y g++
+apt-get install -y gdb
 apt-get install -y clang
-
-apt-get install -y python-dev
-apt-get install -y python3-dev
+apt-get install -y make
+apt-get install -y cmake
 
 apt-get install -y screen
 apt-get install -y tmux
@@ -33,13 +38,16 @@ apt-get install -y cscope
 apt-get install -y expect
 apt-get install -y rsync
 
-# 安装docker
+apt-get install -y openssl
+apt-get install -y graphviz
+
+# Install docker
 if [ ! -f /usr/bin/docker ]; then
 	wget -qO- https://get.docker.com/ | sh
 	usermod -aG docker ${user}
 fi
 
-# setup env
+# Setup vim plugin
 cd ${home_dir}
 if [ ! -d  .vim/bundle/ ]; then
 	mkdir -p .vim/bundle/
@@ -67,8 +75,9 @@ fi
 
 chown -R ${user}:${user} ${home_dir}/.vim
 
-su - ${user}
-ssh-keygen -t rsa -P '' -f ~/.ssh/id_rsa
-cat ~/.ssh/id_rsa.pub >>  ~/.ssh/authorized_keys
-
+# Generate ssh key
+if [ ! -f  ${home_dir}/.ssh/id_rsa]; then
+	su -l ${user} -c "ssh-keygen -t rsa -P '' -f ${home_dir}/.ssh/id_rsa"
+	cat ${home_dir}/.ssh/id_rsa.pub >>  ${home_dir}/.ssh/authorized_keys
+fi
 

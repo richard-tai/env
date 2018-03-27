@@ -14,3 +14,15 @@
 3. vagrant up --provision
 4. vagrant ssh, **putty needed in Windows**
 5. vim ~/.vimrc -> :PluginInstall -> fix ycm error by instruction in ~/.vimrc
+
+## package the box
+```
+vagrant package
+ls ./pakcage.box
+```
+
+## using box
+```
+vagrant box add <new_name> /path/to/package.box
+vagrant init <new_name>
+```

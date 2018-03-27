@@ -76,7 +76,7 @@ fi
 chown -R ${user}:${user} ${home_dir}/.vim
 
 # Generate ssh key
-if [ ! -f  ${home_dir}/.ssh/id_rsa]; then
+if [ ! -f  ${home_dir}/.ssh/id_rsa ]; then
 	su -l ${user} -c "ssh-keygen -t rsa -P '' -f ${home_dir}/.ssh/id_rsa"
 	cat ${home_dir}/.ssh/id_rsa.pub >>  ${home_dir}/.ssh/authorized_keys
 fi

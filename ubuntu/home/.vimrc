@@ -95,6 +95,7 @@ Plugin 'scrooloose/nerdcommenter' "快速注释
 "自动补全
 Plugin 'Shougo/neocomplcache.vim'
 let g:ycm_server_python_interpreter='/usr/bin/python'
+"---- ycm error fix ----
 "cd .vim/bundle/YouCompleteMe
 "./install.sh --clang-completer
 "let g:ycm_global_ycm_extra_conf='~/.vim/bundle/YouCompleteMe/third_party/ycmd/examples/.ycm_extra_conf.py'
@@ -140,21 +141,6 @@ let g:ctrlp_max_files = 0
 let g:ctrlp_max_depth = 100
 let g:ctrlp_use_caching = 1
 "let g:ctrlp_user_command = 'find %s -type f'
-
-"---- ycm error fix ----
-"http://www.jianshu.com/p/d908ce81017a
-"1. Check code completion
-"	cd ~/.vim/bundle/YouCompleteMe; git status; git submodule update --init --recursive
-"2. Install dependency
-"	sudo apt-get install llvm-3.9 clang-3.9 libclang-3.9-dev libboost-all-dev
-"	sudo apt-get install cmake python3-dev
-"3. build
-"	mkdir ~/.ycm_build; cd ~/.ycm_build
-"	cmake -G "Unix Makefiles" -DUSE_SYSTEM_BOOST=ON -DUSE_SYSTEM_LIBCLANG=ON . ~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp
-"	cmake --build . --target ycm_core --config Release
-"	 cp
-"	 ~/.vim/bundle/YouCompleteMe/third_party/ycmd/examples/.ycm_extra_conf.py  ~/.vim/
-
 
 "==== Taglist ==================================================================
 map <leader>tt :TlistToggle<CR> 

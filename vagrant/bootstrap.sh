@@ -3,10 +3,41 @@
 user=vagrant
 home_dir=/home/${user}/
 
+# Get env
+cd ${home_dir}
+if [ ! -d github ]; then
+	mkdir github/
+	cd github/
+fi
+
+if [ -d env ]; then
+	cd env
+	git pull
+	cd -
+else
+	git clone https://github.com/richard-tai/env.git env
+fi
+
+# Get vimrc
+if [ ! -f  ${home_dir}/.tmux.conf ]; then
+	cd ${home_dir}/github/env/ubuntu/home/
+	cp .vimrc ${home_dir}
+	cp .tmux.conf ${home_dir}
+fi
+
+# Change source
+if [ ! -f /etc/apt/sources.list.backup ]; then
+	cp /etc/apt/sources.list /etc/apt/sources.list.backup
+fi
+cp ${home_dir}/github/env/ubuntu/etc/sources.list.16.04.ustc /etc/apt/sources.list
+
 # Install package
 add-apt-repository ppa:jonathonf/vim -y
 add-apt-repository ppa:openjdk-r/ppa -y
+#add-apt-repository ppa:apt-fast/stable -y
 apt update
+
+#apt-get install -y apt-fast # human interaction needed
 
 apt-get install -y vim
 
@@ -47,30 +78,11 @@ if [ ! -f /usr/bin/docker ]; then
 	usermod -aG docker ${user}
 fi
 
-# Setup vim plugin
+# Get Vundle
 cd ${home_dir}
 if [ ! -d  .vim/bundle/ ]; then
 	mkdir -p .vim/bundle/
 	git clone https://github.com/VundleVim/Vundle.vim.git .vim/bundle/Vundle.vim
-fi
-
-if [ ! -d github ]; then
-	mkdir github/
-	cd github/
-fi
-
-if [ -d env ]; then
-	cd env
-	git pull
-	cd -
-else
-	git clone https://github.com/richard-tai/env.git env
-fi
-
-if [ ! -f  ${home_dir}/.tmux.conf ]; then
-	cd env/ubuntu/home/
-	cp .vimrc ${home_dir}
-	cp .tmux.conf ${home_dir}
 fi
 
 chown -R ${user}:${user} ${home_dir}/.vim

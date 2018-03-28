@@ -1,14 +1,16 @@
 Vagrant.configure("2") do |config|
     num = 1
+	type = "ubuntu-16"
     (1..num).each do |i|
         guest_ip_num = 10 + i
         guest_ip = "192.168.69.#{guest_ip_num}"
         port_num = 2230 + i
-        config.vm.define "base-node#{i}" do |node|
+		name = "#{type}-node#{i}"
+        config.vm.define "#{name}" do |node|
             # 设置虚拟机的Box
-            node.vm.box = "ubuntu/trusty64"
+            node.vm.box = "ubuntu/xenial64"
             # 设置虚拟机的主机名
-            node.vm.hostname="base-node#{i}"
+            node.vm.hostname = "node#{i}"
             # 设置虚拟机的IP
             node.vm.network "private_network", ip: "#{guest_ip}"
             # 设置端口映射
@@ -18,7 +20,7 @@ Vagrant.configure("2") do |config|
             # VirtaulBox相关配置
             node.vm.provider "virtualbox" do |v|
                 # 设置虚拟机的名称
-                v.name = "base-node#{i}"
+                v.name = "#{name}"
                 # 设置虚拟机的内存大小
                 v.memory = 2048
                 # 设置虚拟机的CPU个数

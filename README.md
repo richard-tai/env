@@ -26,3 +26,9 @@ ls ./pakcage.box
 vagrant box add <new_name> /path/to/package.box
 vagrant init <new_name>
 ```
+
+## Error
++ Fatal Error: Disconnected: No supported authentication methods available (server sent: publickey )
+* [vagrant ssh fail when using windows](https://docs-v1.vagrantup.com/v1/docs/getting-started/ssh.html)
+* [Log in with an SSH Private Key on Windows](https://support.rackspace.com/how-to/logging-in-with-an-ssh-private-key-on-windows/)
+* [download putty puttgen](https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html)

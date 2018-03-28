@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 user=vagrant
-home_dir=/home/${user}/
+home_dir=/home/${user}
 
 # Get env
 cd ${home_dir}

@@ -29,7 +29,7 @@ fi
 if [ ! -f /etc/apt/sources.list.backup ]; then
 	cp /etc/apt/sources.list /etc/apt/sources.list.backup
 fi
-cp ${home_dir}/github/env/ubuntu/etc/sources.list.16.04.ustc /etc/apt/sources.list
+cp ${home_dir}/github/env/ubuntu/etc/apt/sources.list.16.04.ustc /etc/apt/sources.list
 
 # Install package
 add-apt-repository ppa:jonathonf/vim -y

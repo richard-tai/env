@@ -27,23 +27,24 @@ change_apt_source_18_04() {
 install_vundle() {
 	if [ ! -d  ${home}/.vim/bundle/ ]; then
 		mkdir -p ${home}/.vim/bundle/
-		git clone https://github.com/VundleVim/Vundle.vim.git ${home}/.vim/bundle/Vundle.vim
 	fi
+	git clone https://github.com/VundleVim/Vundle.vim.git ${home}/.vim/bundle/Vundle.vim
 	chown -R ${user}:${user} ${home}/.vim
 }
 
 install_package() {
-	add-apt-repository ppa:jonathonf/vim -y
-	add-apt-repository ppa:openjdk-r/ppa -y
+	#add-apt-repository ppa:jonathonf/vim -y
+	#add-apt-repository ppa:openjdk-r/ppa -y
 	#add-apt-repository ppa:apt-fast/stable -y
-	apt update
-
-	pkg_arr=(ssh vim git python-dev git curl tree gcc g++ clang gdb cmake make screen tmux ctags cscope expect rsync openssl graphviz)
-	for p in ${pkg_arr}; do
-		apt-get install -y ${p};
-	done
+	#apt update
 
 	install_vundle
+
+	pkg_arr="ssh vim git python-dev git curl tree gcc g++ clang gdb cmake make screen tmux ctags cscope expect rsync openssl graphviz"
+	for p in ${pkg_arr}; do
+		echo ${p}
+		apt-get install -y ${p};
+	done
 }
 
 

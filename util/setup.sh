@@ -40,7 +40,7 @@ install_package() {
 
 	install_vundle
 
-	pkg_arr="ssh vim git python-dev git curl tree gcc g++ clang gdb cmake make screen tmux ctags cscope expect rsync openssl graphviz"
+	pkg_arr="ssh vim git python-dev git curl tree gcc g++ clang gdb cmake make screen tmux ctags cscope expect rsync openssl graphviz-dev libidn11-dev libcppunit-dev libcppunit-doc"
 	for p in ${pkg_arr}; do
 		echo ${p}
 		apt-get install -y ${p};

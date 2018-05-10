@@ -42,13 +42,13 @@ install_package() {
 
 	pkg_arr="ssh vim git python-dev git curl tree gcc g++ clang gdb cmake make screen tmux \
 			ctags cscope expect rsync openssl graphviz-dev libidn11-dev libcppunit-dev \
-			libcppunit-doc dos2unix"
+			libcppunit-doc dos2unix apache2"
 	for p in ${pkg_arr}; do
 		echo ${p}
 		apt-get install -y ${p};
 	done
 
-	# install java
+	# install java, manully confirmation needed
 	#sudo add-apt-repository ppa:webupd8team/java -y
 	#sudo apt-get update
 	#sudo apt-get install oracle-java8-installer

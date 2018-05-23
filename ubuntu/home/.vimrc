@@ -112,6 +112,8 @@ Plugin 'Syntastic' "语法分析
 
 Plugin 'taglist.vim'
 
+Plugin 'jlanzarotta/bufexplorer'
+
 call vundle#end()            " required
 
 filetype plugin indent on    " required

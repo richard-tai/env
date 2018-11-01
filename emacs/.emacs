@@ -28,11 +28,19 @@
 (define-key c-mode-map (kbd "C-c C-s") 'rtags-find-symbol)
 (define-key c++-mode-map (kbd "C-c C-s") 'rtags-find-symbol)
 
+(define-key c-mode-map (kbd "C-c C-t") 'rtags-taglist)
+(define-key c++-mode-map (kbd "C-c C-t") 'rtags-taglist)
+
 (define-key c-mode-map (kbd "C-c C-f") 'rtags-find-file)
 (define-key c++-mode-map (kbd "C-c C-f") 'rtags-find-file)
 
 (define-key c-mode-map (kbd "C-c C-r") 'rtags-find-references-at-point)
 (define-key c++-mode-map (kbd "C-c C-r") 'rtags-find-references-at-point)
+
+
+;;git clone https://github.com/jaypei/emacs-neotree.git ~/.emacs.d/neotree
+(load-file "~/.emacs.d/neotree/neotree.el")
+(global-set-key (kbd "C-c C-m") 'neotree-toggle)
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.

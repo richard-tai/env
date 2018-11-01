@@ -12,6 +12,10 @@
 ;(require 'window-numbering)
 ;(window-numbering-mode 1)
 
+(setq frame-title-format
+      (list (format "%s %%S: %%j " (system-name))
+        '(buffer-file-name "%f" (dired-directory dired-directory "%b"))))
+
 (load-file "~/data/github/rtags/src/rtags.el")
 
 ;(add-to-list 'load-path "~/.emacs.d/elpa/helm")
@@ -86,17 +90,21 @@
 ;(rtags-enable-standard-keybindings)
 ;(require 'helm-rtags)
 ;(require 'flycheck-rtags)
-(define-key c-mode-map (kbd "C-c C-j") 'rtags-find-symbol)
-(define-key c++-mode-map (kbd "C-c C-j") 'rtags-find-symbol)
 
-(define-key c-mode-map (kbd "C-c C-k") 'rtags-find-symbol-at-point)
-(define-key c++-mode-map (kbd "C-c C-k") 'rtags-find-symbol-at-point)
+(define-key c-mode-map (kbd "M-]") 'rtags-find-symbol-at-point)
+(define-key c++-mode-map (kbd "M-]") 'rtags-find-symbol-at-point)
 
-(define-key c-mode-map (kbd "C-c C-b") 'rtags-location-stack-back)
-(define-key c++-mode-map (kbd "C-c C-b") 'rtags-location-stack-back)
+(global-set-key (kbd "M-o") 'rtags-location-stack-back)
+(global-set-key (kbd "M-i") 'rtags-location-stack-forward)
 
-(define-key c-mode-map (kbd "C-c C-r") 'rtags-find-references)
-(define-key c++-mode-map (kbd "C-c C-r") 'rtags-find-references)
+(define-key c-mode-map (kbd "M-s") 'rtags-find-symbol)
+(define-key c++-mode-map (kbd "M-s") 'rtags-find-symbol)
+
+(define-key c-mode-map (kbd "M-f") 'rtags-find-file)
+(define-key c++-mode-map (kbd "M-f") 'rtags-find-file)
+
+(define-key c-mode-map (kbd "C-c C-r") 'rtags-find-references-at-point)
+(define-key c++-mode-map (kbd "C-c C-r") 'rtags-find-references-at-point)
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -143,7 +151,6 @@
   (call-interactively 'pop-global-mark)
   (setq global-mark-ring (nreverse global-mark-ring)))
 
-(global-set-key (kbd "M-o") 'backward-global-mark)
-(global-set-key (kbd "M-i") 'forward-global-mark)
-;(global-set-key [M-left] (quote backward-global-mark))
-;(global-set-key [M-right] (quote forward-global-mark))
+;(global-set-key (kbd "M-o") 'backward-global-mark)
+;(global-set-key (kbd "M-i") 'forward-global-mark)
+

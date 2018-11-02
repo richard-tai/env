@@ -55,3 +55,9 @@
  ;; If there is more than one, they won't work right.
  )
 (put 'downcase-region 'disabled nil)
+
+;;; replace-string case-sensitive
+(defadvice replace-string (around turn-off-case-fold-search)
+  (let ((case-fold-search nil))
+    ad-do-it))
+(ad-activate 'replace-string)

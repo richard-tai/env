@@ -43,6 +43,10 @@ install_neotree() {
 	git clone https://github.com/jaypei/emacs-neotree.git ${home}/.emacs.d/neotree
 }
 
+install_bear() {
+	git clone https://github.com/rizsotto/Bear.git ${home}/github/Bear
+}
+
 install_package() {
 	#add-apt-repository ppa:jonathonf/vim -y
 	#add-apt-repository ppa:openjdk-r/ppa -y
@@ -68,6 +72,7 @@ install_package() {
 
 	install_neotree
 	install_rtags
+	install_bear
 
 	# install java, manully confirmation needed
 	#sudo add-apt-repository ppa:webupd8team/java -y

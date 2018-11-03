@@ -18,10 +18,10 @@ echo issue: ${issue}
 
 change_apt_source_18_04() {
 	if [ ! -f /etc/apt/sources.list.backup ]; then
-		cp /etc/apt/sources.list /etc/apt/sources.list.backup
+		sudo cp /etc/apt/sources.list /etc/apt/sources.list.backup
 	fi
-	cp ${SHELL_FOLDER}/../ubuntu/etc/apt/sources.list.18.04.aliyun /etc/apt/sources.list
-	apt-get update
+	sudo cp ${SHELL_FOLDER}/../ubuntu/etc/apt/sources.list.18.04.aliyun /etc/apt/sources.list
+	sudo apt-get update
 }
 
 install_vundle() {
@@ -30,6 +30,17 @@ install_vundle() {
 	fi
 	git clone https://github.com/VundleVim/Vundle.vim.git ${home}/.vim/bundle/Vundle.vim
 	chown -R ${user}:${user} ${home}/.vim
+}
+
+install_rtags() {
+	git clone --recursive https://github.com/Andersbakken/rtags.git ${home}/github/rtags
+	cd ${home}/github/rtags
+	cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=1 .
+	make
+}
+
+install_neotree() {
+	git clone https://github.com/jaypei/emacs-neotree.git ${home}/.emacs.d/neotree
 }
 
 install_package() {
@@ -46,7 +57,7 @@ install_package() {
 			net-tools libssl-dev clang libclang-dev"
 	for p in ${pkg_arr}; do
 		echo ${p}
-		apt-get install -y ${p};
+		sudo apt-get install -y ${p};
 	done
 
 	pip_pkg_arr="mysql-python"
@@ -54,6 +65,9 @@ install_package() {
 		echo ${p}
 		pip install ${p};
 	done
+
+	install_neotree
+	install_rtags
 
 	# install java, manully confirmation needed
 	#sudo add-apt-repository ppa:webupd8team/java -y
@@ -63,10 +77,15 @@ install_package() {
 
 }
 
-git_clone() {
-	git clone https://github.com/jaypei/emacs-neotree.git ~/.emacs.d/neotree
+make_dirs() {
+	dirs="${home}/github"
+	for d in ${dirs}; do
+		if [ ! -d ${d} ]; then
+			mkdir -p ${d}
+			echo make dir ${d}
+		fi
+	done
 }
-
 
 copy_config() {
 	if [ ! -f  ${home}/.tmux.conf ]; then
@@ -80,6 +99,7 @@ setup_ubuntu_18_04() {
 	if [ "${issue}" != "18.04" ]; then
 		return
 	fi
+	make_dirs
 	copy_config
 	change_apt_source_18_04
 	install_package

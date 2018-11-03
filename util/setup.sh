@@ -1,6 +1,6 @@
 #!/bin/bash
 
-user=richard_tai
+user=richard-tai
 if [ $# -ge 1 ]; then
 	user=$1
 fi
@@ -101,14 +101,14 @@ copy_config() {
 }
 
 setup_ubuntu_18_04() {
-	if [ "${issue}" != "18.04" ]; then
+	if [ "${issue:0:5}" != "18.04" ]; then
+		echo "OS version not match"
 		return
 	fi
 	make_dirs
 	copy_config
 	change_apt_source_18_04
 	install_package
-	git_clone
 }
 
 #################################

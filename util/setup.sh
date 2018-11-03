@@ -40,10 +40,10 @@ install_package() {
 
 	install_vundle
 
-	pkg_arr="ssh vim git python-dev git curl tree gcc g++ clang gdb cmake make screen tmux \
+	pkg_arr="ssh vim emacs git python-dev git curl tree gcc g++ clang gdb cmake make screen tmux \
 			ctags cscope expect rsync openssl graphviz-dev libidn11-dev libcppunit-dev \
 			libcppunit-doc dos2unix apache2 xrdp python-pycurl libcurl4-gnutls-dev ant \
-			net-tools libssl-dev"
+			net-tools libssl-dev clang libclang-dev"
 	for p in ${pkg_arr}; do
 		echo ${p}
 		apt-get install -y ${p};
@@ -60,6 +60,11 @@ install_package() {
 	#sudo apt-get update
 	#sudo apt-get install oracle-java8-installer
 	#sudo apt-get install oracle-java8-set-default
+
+}
+
+git_clone() {
+	git clone https://github.com/jaypei/emacs-neotree.git ~/.emacs.d/neotree
 }
 
 
@@ -67,6 +72,7 @@ copy_config() {
 	if [ ! -f  ${home}/.tmux.conf ]; then
 		cp ${SHELL_FOLDER}/../ubuntu/home/.vimrc ${home}
 		cp ${SHELL_FOLDER}/../ubuntu/home/.tmux.conf ${home}
+		cp ${SHELL_FOLDER}/../ubuntu/home/.emacs ${home}
 	fi
 }
 
@@ -77,6 +83,7 @@ setup_ubuntu_18_04() {
 	copy_config
 	change_apt_source_18_04
 	install_package
+	git_clone
 }
 
 #################################

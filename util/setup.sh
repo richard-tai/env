@@ -37,6 +37,7 @@ install_rtags() {
 	cd ${home}/github/rtags
 	cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=1 .
 	make
+	sudo make install
 }
 
 install_neotree() {

@@ -7,6 +7,7 @@
 
 (global-linum-mode 1) ; always show line numbers 
 (setq linum-format "%d| ")  ;set format
+(setq column-number-mode t) ; show column
 
 ;(require 'window-numbering)
 ;(window-numbering-mode 1)

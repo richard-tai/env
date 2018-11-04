@@ -16,6 +16,8 @@
       (list (format "%s %%S: %%j " (system-name))
         '(buffer-file-name "%f" (dired-directory dired-directory "%b"))))
 
+(load-theme 'deeper-blue t)
+
 (load-file "~/github/rtags/src/rtags.el")
 
 

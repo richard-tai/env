@@ -45,6 +45,10 @@ install_neotree() {
 
 install_bear() {
 	git clone https://github.com/rizsotto/Bear.git ${home}/github/Bear
+	cd  ${home}/github/Bear
+	cmake .
+	make all
+	sudo make install
 }
 
 install_package() {

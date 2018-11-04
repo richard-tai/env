@@ -7,7 +7,6 @@
 
 (global-linum-mode 1) ; always show line numbers 
 (setq linum-format "%d| ")  ;set format
-(define-key global-map "\C-c\C-g" "goto-line")
 
 ;(require 'window-numbering)
 ;(window-numbering-mode 1)

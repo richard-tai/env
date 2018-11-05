@@ -20,6 +20,7 @@
 
 (load-file "~/github/rtags/src/rtags.el")
 
+(add-hook 'after-init-hook 'global-company-mode) ;; company
 
 (define-key c-mode-map (kbd "M-]") 'rtags-find-symbol-at-point)
 (define-key c++-mode-map (kbd "M-]") 'rtags-find-symbol-at-point)

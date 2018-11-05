@@ -6,7 +6,15 @@
 (package-initialize)
 
 (global-linum-mode 1) ; always show line numbers 
-(setq linum-format "%d| ")  ;set format
+;(setq linum-format "%d| ")  ;set format
+;(setq linum-format "%4d| ")  ;set format
+;(setq linum-format 'dynamic)  ;set format
+(defadvice linum-update-window (around linum-dynamic activate)
+    (let* ((w (length (number-to-string
+        (count-lines (point-min) (point-max)))))
+     (linum-format (concat "%" (number-to-string w) "d ")))
+    ad-do-it))
+
 (setq column-number-mode t) ; show column
 
 ;(require 'window-numbering)

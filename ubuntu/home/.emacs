@@ -48,6 +48,9 @@
 (define-key c-mode-map (kbd "C-c C-r") 'rtags-find-references-at-point)
 (define-key c++-mode-map (kbd "C-c C-r") 'rtags-find-references-at-point)
 
+(setq default-tab-width 4)
+(setq-default indent-tabs-mode nil)
+
 
 ;;git clone https://github.com/jaypei/emacs-neotree.git ~/.emacs.d/neotree
 (load-file "~/.emacs.d/neotree/neotree.el")

@@ -17,8 +17,7 @@
 
 (setq column-number-mode t) ; show column
 
-;(require 'window-numbering)
-;(window-numbering-mode 1)
+(add-hook 'c++-mode-hook #'(lambda () (modify-syntax-entry ?_ "w")))
 
 (setq frame-title-format
       (list (format "%s %%S: %%j " (system-name))

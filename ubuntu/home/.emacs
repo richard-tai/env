@@ -17,6 +17,7 @@
 
 (setq column-number-mode t) ; show column
 
+(add-hook 'c-mode-hook #'(lambda () (modify-syntax-entry ?_ "w")))
 (add-hook 'c++-mode-hook #'(lambda () (modify-syntax-entry ?_ "w")))
 
 (setq frame-title-format

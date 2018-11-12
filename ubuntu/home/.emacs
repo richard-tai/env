@@ -50,7 +50,7 @@
 
 (setq default-tab-width 4)
 (setq-default indent-tabs-mode nil)
-
+(setq-default c-basic-offset 4)
 
 ;;git clone https://github.com/jaypei/emacs-neotree.git ~/.emacs.d/neotree
 (load-file "~/.emacs.d/neotree/neotree.el")

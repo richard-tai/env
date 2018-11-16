@@ -33,8 +33,8 @@ install_vundle() {
 }
 
 install_rtags() {
-	git clone --recursive https://github.com/Andersbakken/rtags.git ${home}/github/rtags
-	cd ${home}/github/rtags
+	git clone --recursive https://github.com/Andersbakken/rtags.git ${home}/.emacs.d/rtags
+	cd ${home}/.emacs.d/rtags
 	cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=1 .
 	make
 	sudo make install
@@ -50,6 +50,12 @@ install_bear() {
 	cmake .
 	make all
 	sudo make install
+}
+
+install_evil() {
+	git clone https://github.com/emacs-evil/goto-chg.git ${home}/.emacs.d/goto-chg
+	git clone http://www.dr-qubit.org/git/undo-tree.git ${home}/.emacs.d/undo-tree
+	git clone https://github.com/emacs-evil/evil ${home}/.emacs.d/evil
 }
 
 install_package() {
@@ -76,6 +82,7 @@ install_package() {
 	done
 
 	install_neotree
+	install_evil
 	install_rtags
 	install_bear
 

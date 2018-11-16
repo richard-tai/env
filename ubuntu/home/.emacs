@@ -6,6 +6,9 @@
 ;; You may delete these explanatory comments.
 (package-initialize)
 
+(setq evil-want-C-i-jump t)
+(setq evil-want-C-u-scroll t)
+
 (setq evil-toggle-key "")	; remove default evil-toggle-key C-z, manually setup later
 (setq evil-want-C-i-jump nil)	; don't bind [tab] to evil-jump-forward
 (add-to-list 'load-path "~/.emacs.d/undo-tree")
@@ -16,22 +19,6 @@
 (add-to-list 'load-path "~/.emacs.d/evil")
 (require 'evil)
 (evil-mode 1)
-
-;; treat "_" as a word character
-(modify-syntax-entry ?_ "w")
-(add-hook 'c-mode-common-hook #'(lambda () (modify-syntax-entry ?_ "w")))
-(add-hook 'c++-mode-common-hook #'(lambda () (modify-syntax-entry ?_ "w")))
-
-;; always show line numbers 
-(global-linum-mode 1)
-;; (setq linum-format 'dynamic)  ;set format
-(defadvice linum-update-window (around linum-dynamic activate)
-    (let* ((w (length (number-to-string
-        (count-lines (point-min) (point-max)))))
-     (linum-format (concat "%" (number-to-string w) "d ")))
-    ad-do-it))
-;; show column
-(setq column-number-mode t)
 
 ;; remove all keybindings from insert-state keymap, use emacs-state when editing
 (setcdr evil-insert-state-map nil)
@@ -89,3 +76,21 @@
   (let ((case-fold-search nil))
     ad-do-it))
 (ad-activate 'replace-string)
+
+
+;; treat "_" as a word character
+(modify-syntax-entry ?_ "w")
+(add-hook 'c-mode-common-hook #'(lambda () (modify-syntax-entry ?_ "w")))
+(add-hook 'c++-mode-common-hook #'(lambda () (modify-syntax-entry ?_ "w")))
+
+;; always show line numbers 
+(global-linum-mode 1)
+;; (setq linum-format 'dynamic)  ;set format
+(defadvice linum-update-window (around linum-dynamic activate)
+    (let* ((w (length (number-to-string
+        (count-lines (point-min) (point-max)))))
+     (linum-format (concat "%" (number-to-string w) "d ")))
+    ad-do-it))
+;; show column
+(setq column-number-mode t)
+

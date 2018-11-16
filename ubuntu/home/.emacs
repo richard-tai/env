@@ -6,11 +6,10 @@
 ;; You may delete these explanatory comments.
 (package-initialize)
 
-(setq evil-want-C-i-jump t)
-(setq evil-want-C-u-scroll t)
 
 (setq evil-toggle-key "")	; remove default evil-toggle-key C-z, manually setup later
-(setq evil-want-C-i-jump nil)	; don't bind [tab] to evil-jump-forward
+(setq evil-want-C-u-scroll t)
+;(setq evil-want-C-i-jump nil)	; don't bind [tab] to evil-jump-forward
 (add-to-list 'load-path "~/.emacs.d/undo-tree")
 (require 'undo-tree)
 (global-undo-tree-mode)
@@ -31,9 +30,31 @@
     
 ;; Use j/k to move one visual line insted of gj/gk
 (define-key evil-normal-state-map (kbd "<remap> <evil-next-line>") 'evil-next-visual-line)
-(define-key evil-normal-state-map (kbd "<remap> <evil-previous-line>") 'evil-previous-visual-line)
 (define-key evil-motion-state-map (kbd "<remap> <evil-next-line>") 'evil-next-visual-line)
+
+(define-key evil-normal-state-map (kbd "<remap> <evil-previous-line>") 'evil-previous-visual-line)
 (define-key evil-motion-state-map (kbd "<remap> <evil-previous-line>") 'evil-previous-visual-line)
+
+
+;; https://www.reddit.com/r/emacs/comments/80yna2/evil_how_to_have_ci_behave_like_in_vim/
+(with-eval-after-load 'evil-maps
+  (define-key evil-motion-state-map (kbd "SPC") nil)
+  (define-key evil-motion-state-map (kbd "RET") nil)
+  (define-key evil-motion-state-map (kbd "TAB") nil))
+
+(defun my-translate-C-i (_prompt)
+  (if (and (= (length (this-single-command-raw-keys)) 1)
+           (eql (aref (this-single-command-raw-keys) 0) ?\C-i)
+           (bound-and-true-p evil-mode)
+           (eq evil-state 'normal))
+      (kbd "<C-i>")
+    (kbd "TAB")))
+
+(define-key key-translation-map (kbd "TAB") 'my-translate-C-i)
+
+(with-eval-after-load 'evil-maps
+  (define-key evil-motion-state-map (kbd "<C-i>") 'evil-jump-forward))
+
 
 ;; using theme
 (load-theme 'tsdh-dark t)
@@ -43,7 +64,6 @@
 
 
 ;; rtags
-(load-file "~/github/rtags/src/rtags.el")
 (add-to-list 'load-path "~/.emacs.d/rtags/src")
 (require 'rtags)
 

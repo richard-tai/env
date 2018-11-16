@@ -114,3 +114,30 @@
 ;; show column
 (setq column-number-mode t)
 
+
+(require 'ido)
+(setq ido-enable-flex-matching t)
+(setq ido-everywhere t)
+(ido-mode t)
+
+
+(defvar my-keys-minor-mode-map (make-sparse-keymap) "my-keys-minor-mode keymap.")
+(define-key my-keys-minor-mode-map (kbd "C-c C-p")   'project-find-file)
+(define-minor-mode my-keys-minor-mode
+  "A minor mode so that my key settings override annoying major modes."
+  :init-value t :lighter "")
+(my-keys-minor-mode 1)
+
+
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages (quote (org helm company-ebdb))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )

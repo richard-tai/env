@@ -62,6 +62,8 @@
 ;; company
 (add-hook 'after-init-hook 'global-company-mode)
 
+;; readonly default
+(add-hook 'find-file-hook (lambda () (setq buffer-read-only t)))
 
 ;; rtags
 (add-to-list 'load-path "~/.emacs.d/rtags/src")
@@ -123,7 +125,7 @@
 
 (defvar my-keys-minor-mode-map (make-sparse-keymap) "my-keys-minor-mode keymap.")
 (define-key my-keys-minor-mode-map (kbd "C-c C-p")   'project-find-file)
-(define-key my-keys-minor-mode-map (kbd "C-c C-r")   'project-find-regexp)
+(define-key my-keys-minor-mode-map (kbd "C-c C-e")   'project-find-regexp)
 (define-minor-mode my-keys-minor-mode
   "A minor mode so that my key settings override annoying major modes."
   :init-value t :lighter "")

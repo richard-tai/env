@@ -69,7 +69,7 @@ install_package() {
 	pkg_arr="ssh vim emacs git python-dev git curl tree gcc g++ clang gdb cmake make screen tmux \
 			ctags cscope expect rsync openssl graphviz graphviz-dev libidn11-dev libcppunit-dev \
 			libcppunit-doc dos2unix apache2 xrdp python-pycurl libcurl4-gnutls-dev ant \
-			net-tools libssl-dev clang libclang-dev autoconf zlib1g-dev libbz2-dev"
+			net-tools libssl-dev clang libclang-dev autoconf zlib1g-dev libbz2-dev pstack"
 	for p in ${pkg_arr}; do
 		echo ${p}
 		sudo apt-get install -y ${p};

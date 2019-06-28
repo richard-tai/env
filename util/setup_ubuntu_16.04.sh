@@ -72,7 +72,7 @@ install_package() {
 			net-tools libssl-dev clang libclang-dev autoconf zlib1g-dev libbz2-dev pstack \
 			openjdk-8-jdk libqt4-dev libgtk2.0-dev pkg-config libavcodec-dev libavformat-dev \
 			libswscale-dev libjpeg-dev libpng-dev libtiff-dev libopenblas-base libsdl2-dev libsdl2-image-dev \
-			libdc1394-22-dev cmake-qt-gui"
+			libdc1394-22-dev cmake-qt-gui libgnutls-dev libtiff5-dev libgif-dev libxpm-dev libncurses5-dev"
 	for p in ${pkg_arr}; do
 		echo ${p}
 		sudo apt-get install -y ${p};

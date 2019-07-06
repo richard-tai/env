@@ -95,6 +95,15 @@
 (define-key c-mode-map (kbd "C-c C-h") 'rtags-print-class-hierarchy)
 (define-key c++-mode-map (kbd "C-c C-h") 'rtags-print-class-hierarchy) 
 
+
+(add-to-list 'load-path "~/.emacs.d/buffer-move")
+(require 'buffer-move)
+(global-set-key (kbd "C-c <up>")     'buf-move-up)
+(global-set-key (kbd "C-c <down>")   'buf-move-down)
+(global-set-key (kbd "C-c <left>")   'buf-move-left)
+(global-set-key (kbd "C-c <right>")  'buf-move-right) 
+
+
 ;; neotree
 (add-to-list 'load-path "~/.emacs.d/neotree")
 (require 'neotree)

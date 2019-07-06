@@ -85,6 +85,8 @@ install_package() {
 	install_evil
 	install_rtags
 	install_bear
+	
+	git clone https://github.com/lukhas/buffer-move.git ${home}/.emacs.d/buffer-move
 
 	# install java, manully confirmation needed
 	#sudo add-apt-repository ppa:webupd8team/java -y

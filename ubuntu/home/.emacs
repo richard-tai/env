@@ -95,6 +95,9 @@
 (define-key c-mode-map (kbd "C-c C-h") 'rtags-print-class-hierarchy)
 (define-key c++-mode-map (kbd "C-c C-h") 'rtags-print-class-hierarchy) 
 
+(define-key c-mode-map (kbd "C-c C-v") 'rtags-find-virtuals-at-point)
+(define-key c++-mode-map (kbd "C-c C-v") 'rtags-find-virtuals-at-point)
+
 
 (add-to-list 'load-path "~/.emacs.d/buffer-move")
 (require 'buffer-move)

@@ -74,6 +74,12 @@
 (add-to-list 'load-path "~/.emacs.d/rtags/src")
 (require 'rtags)
 
+
+(setq rtags-completions-enabled t)
+(push 'company-rtags company-backends)
+(global-company-mode)
+
+
 (define-key c-mode-map (kbd "M-]") 'rtags-find-symbol-at-point)
 (define-key c++-mode-map (kbd "M-]") 'rtags-find-symbol-at-point)
 
@@ -106,6 +112,10 @@
 (global-set-key (kbd "C-c <left>")   'buf-move-left)
 (global-set-key (kbd "C-c <right>")  'buf-move-right) 
 
+
+(add-to-list 'load-path "~/.emacs.d/highlight-symbol.el")
+(require 'highlight-symbol) ;;Use autoload' oridle-require' if you like
+(global-set-key (kbd "C-c *") 'highlight-symbol-at-point) 
 
 ;; neotree
 (add-to-list 'load-path "~/.emacs.d/neotree")

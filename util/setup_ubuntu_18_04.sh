@@ -87,6 +87,7 @@ install_package() {
 	install_bear
 	
 	git clone https://github.com/lukhas/buffer-move.git ${home}/.emacs.d/buffer-move
+	git clone https://github.com/nschum/highlight-symbol.el.git ${home}/.emacs.d/highlight-symbol
 
 	# install java, manully confirmation needed
 	#sudo add-apt-repository ppa:webupd8team/java -y

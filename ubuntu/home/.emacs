@@ -161,6 +161,14 @@
 (my-keys-minor-mode 1)
 
 
+(defun split-right-and-buffer-list ()
+  (interactive)
+  (split-window-horizontally)
+  (other-window 1)
+  (electric-buffer-list nil))
+(global-set-key (kbd "C-x C-b") 'split-right-and-buffer-list)
+
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

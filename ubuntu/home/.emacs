@@ -169,6 +169,12 @@
 (global-set-key (kbd "C-x C-b") 'split-right-and-buffer-list)
 
 
+(add-to-list 'load-path "~/.emacs.d/highlight")                                                                                                                                                                     
+(add-to-list 'load-path "~/.emacs.d/evil-search-highlight-persist")
+(require 'highlight)
+(require 'evil-search-highlight-persist)
+(global-evil-search-highlight-persist t)
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

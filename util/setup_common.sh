@@ -32,6 +32,9 @@ install_emacs_plugin() {
 	git clone https://github.com/lukhas/buffer-move.git ${home}/.emacs.d/buffer-move
 	git clone https://github.com/nschum/highlight-symbol.el.git ${home}/.emacs.d/highlight-symbol
 	git clone https://github.com/jaypei/emacs-neotree.git ${home}/.emacs.d/neotree
+        git clone https://github.com/richard-tai/evil-search-highlight-persist.git ${home}/.emacs.d/evil-search-highlight-persist
+	mkdir ${home}/.emacs.d/highlight
+	wget https://github.com/emacsmirror/emacswiki.org/raw/master/highlight.el ${home}/.emacs.d/highlight
 }
 
 

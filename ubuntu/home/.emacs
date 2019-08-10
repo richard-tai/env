@@ -112,17 +112,19 @@
 (global-set-key (kbd "C-c <left>")   'buf-move-left)
 (global-set-key (kbd "C-c <right>")  'buf-move-right) 
 
-
-(add-to-list 'load-path "~/.emacs.d/highlight-symbol.el")
-(require 'highlight-symbol) ;;Use autoload' oridle-require' if you like
-(global-set-key (kbd "C-c *") 'highlight-symbol-at-point) 
+;; show full path of current file
+(defun show-file-name ()
+  "Show the full path file name in the minibuffer."
+  (interactive)
+  (message (buffer-file-name)))
+(global-set-key (kbd "C-c C-y") 'show-file-name)
 
 ;; neotree
 (add-to-list 'load-path "~/.emacs.d/neotree")
 (require 'neotree)
 (global-set-key (kbd "C-c C-m") 'neotree-toggle)
 
-;;; replace-string case-sensitive
+;; replace-string case-sensitive
 (defadvice replace-string (around turn-off-case-fold-search)
   (let ((case-fold-search nil))
     ad-do-it))
@@ -168,7 +170,7 @@
   (electric-buffer-list nil))
 (global-set-key (kbd "C-x C-b") 'split-right-and-buffer-list)
 
-
+;; highlight persist
 (add-to-list 'load-path "~/.emacs.d/highlight")                                                                                                                                                                     
 (add-to-list 'load-path "~/.emacs.d/evil-search-highlight-persist")
 (require 'highlight)

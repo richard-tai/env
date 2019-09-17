@@ -22,7 +22,7 @@ change_apt_source_16_04() {
 	if [ ! -f /etc/apt/sources.list.backup ]; then
 		sudo cp /etc/apt/sources.list /etc/apt/sources.list.backup
 	fi
-	sudo cp ${SHELL_FOLDER}/../ubuntu/etc/apt/sources.list.16.04.aliyun /etc/apt/sources.list
+	sudo cp ${SHELL_FOLDER}/../ubuntu/etc/apt/sources.list.16.04.tsinghua /etc/apt/sources.list
 	sudo apt-get update
 }
 

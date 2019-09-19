@@ -2,7 +2,7 @@
 
 source setup_common.sh
 
-user=cat
+user=${USER}
 if [ $# -ge 1 ]; then
 	user=$1
 fi

@@ -51,7 +51,7 @@ if [ $? != 0 ]; then
 fi
 
 ## download emacs
-if [ ! -f emacs.zip]; then
+if [ ! -f emacs.zip ]; then
     download_emacs
 else
     check_zip emacs.zip

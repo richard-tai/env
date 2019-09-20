@@ -2,7 +2,7 @@
 
 apt-get update
 
-pkgs="git wget curl make cmake apt-utils unzip tar"
+pkgs="git wget curl make cmake apt-utils unzip tar autoconf"
 
 apt-get install ${pkgs} -y
 

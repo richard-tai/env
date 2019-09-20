@@ -7,7 +7,8 @@ function download_vim() {
 
 function download_emacs() {
     echo "download emacs"
-    wget -O emacs.tar.gz -c -t 0 https://git.savannah.gnu.org/cgit/emacs.git/snapshot/emacs-26.3.tar.gz
+    #wget -O emacs.tar.gz -c -t 0 https://git.savannah.gnu.org/cgit/emacs.git/snapshot/emacs-26.3.tar.gz
+    wget -O emacs.zip -c -t 0 https://github.com/emacs-mirror/emacs/archive/master.zip
 }
 
 function check_zip() {
@@ -50,19 +51,19 @@ if [ $? != 0 ]; then
 fi
 
 ## download emacs
-if [ ! -f emacs.tar.gz ]; then
+if [ ! -f emacs.zip]; then
     download_emacs
 else
-    check_tar_gz emacs.tar.gz
+    check_zip emacs.zip
     if [ $? != 0 ]; then
-        echo "emacs bad tar.gz"
+        echo "emacs bad zip"
         download_emacs
     fi
 fi
 
-check_tar_gz emacs.tar.gz
+check_zip emacs.zip
 if [ $? != 0 ]; then
-    echo "emacs bad tar.gz"
+    echo "emacs bad zip"
     exit 3
 fi
 

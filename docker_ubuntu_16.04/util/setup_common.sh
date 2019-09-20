@@ -94,7 +94,7 @@ make_dirs() {
 copy_config() {
 	if [ ! -f  ${HOME}/.tmux.conf ]; then
 		cp ${HOME}/github/env/ubuntu/home/.vimrc ${HOME}
-		cp ${HOME}/github/env/ubuntu/ubuntu/home/.tmux.conf ${HOME}
-		cp ${HOME}/github/env/ubuntu/ubuntu/home/.emacs ${HOME}
+		cp ${HOME}/github/env/ubuntu/home/.tmux.conf ${HOME}
+		cp ${HOME}/github/env/ubuntu/home/.emacs ${HOME}
 	fi
 }

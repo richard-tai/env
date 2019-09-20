@@ -8,8 +8,8 @@ COPY . $work_dir
 WORKDIR $work_dir
 
 RUN bash script/install_prepare.sh
-#RUN bash script/install_vim.sh
 RUN bash script/install_emacs.sh
+RUN bash script/install_vim.sh
 RUN bash script/install_more.sh
 
 CMD ["/bin/bash"]

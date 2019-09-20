@@ -1,12 +1,14 @@
 FROM ubuntu:16.04
 
+ENV work_dir=/root/shared/docker_context
+
 COPY ./ubuntu/etc/apt/sources.list.16.04.aliyun /etc/apt/
-COPY ./script/* /shared/script/
+COPY . $work_dir
 
-WORKDIR /shared/script/
+WORKDIR $work_dir
 
-RUN bash /shared/script/install_prepare.sh
-RUN bash /shared/script/install_vim.sh
-RUN bash /shared/script/install_more.sh
+RUN bash script/install_prepare.sh
+RUN bash script/install_vim.sh
+RUN bash script/install_more.sh
 
 CMD ["/bin/bash"]

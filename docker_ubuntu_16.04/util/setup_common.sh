@@ -1,5 +1,10 @@
 #!/bin/bash
 
+user_make="sudo make"
+if [$USER == "root" ]; then
+    user_make="make"
+fi
+
 install_vundle() {
 	if [ ! -d  ${HOME}/.vim/bundle/ ]; then
 		mkdir -p ${HOME}/.vim/bundle/
@@ -12,7 +17,7 @@ install_rtags() {
 	cd ${HOME}/.emacs.d/rtags
 	cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=1 .
 	make
-	sudo make install
+	${user_make} install
 }
 
 
@@ -21,7 +26,7 @@ install_bear() {
 	cd  ${HOME}/github/Bear
 	cmake .
 	make all
-	sudo make install
+	${user_make} install
 }
 
 install_emacs_plugin() {
@@ -45,7 +50,7 @@ install_package() {
 
 	install_vundle
 
-	pkg_arr="ssh vim emacs git python-dev git curl tree gcc g++ clang gdb cmake make screen tmux \
+	pkg_arr="ssh python-dev git curl pip tree gcc g++ clang gdb cmake make screen tmux \
 			ctags cscope expect rsync openssl graphviz graphviz-dev libidn11-dev libcppunit-dev \
 			libcppunit-doc dos2unix apache2 xrdp python-pycurl libcurl4-gnutls-dev ant \
 			net-tools libssl-dev clang libclang-dev autoconf zlib1g-dev libbz2-dev pstack \

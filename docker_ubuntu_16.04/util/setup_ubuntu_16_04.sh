@@ -2,17 +2,11 @@
 
 source setup_common.sh
 
-user=${USER}
-if [ $# -ge 1 ]; then
-	user=$1
-fi
 
-home=/home/${user}
 SHELL_FOLDER=$(cd "$(dirname "$0")";pwd)
 
 issue=$(cat /etc/issue | cut -d ' ' -f 2)
 
-echo home: ${home}
 echo SHELL_FOLDER: ${SHELL_FOLDER}
 echo issue: ${issue}
 

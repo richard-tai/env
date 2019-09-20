@@ -5,6 +5,11 @@ function download_vim() {
     wget -O vim.zip -c -t 0 https://github.com/vim/vim/archive/master.zip
 }
 
+function download_emacs() {
+    echo "download emacs"
+    wget -O emacs.tar.gz -c -t 0 https://git.savannah.gnu.org/cgit/emacs.git/snapshot/emacs-26.3.tar.gz
+}
+
 function check_zip() {
     if [ -d tmp ]; then
         rm -rf tmp
@@ -13,11 +18,21 @@ function check_zip() {
     return $?
 }
 
+function check_tar_gz() {
+    if [ -d tmp ]; then
+        rm -rf tmp
+    fi
+    mkdir tmp
+    tar -xzf  $1 -C tmp
+    return $?
+}
+
 if [ $# != 1 ]; then
     echo "$0 <name:tag>"
     exit 1
 fi
 
+## download vim
 if [ ! -f vim.zip ]; then
     download_vim
 else
@@ -33,5 +48,23 @@ if [ $? != 0 ]; then
     echo "vim bad zip"
     exit 2
 fi
+
+## download emacs
+if [ ! -f emacs.tar.gz ]; then
+    download_emacs
+else
+    check_tar_gz emacs.tar.gz
+    if [ $? != 0 ]; then
+        echo "emacs bad tar.gz"
+        download_emacs
+    fi
+fi
+
+check_tar_gz emacs.tar.gz
+if [ $? != 0 ]; then
+    echo "emacs bad tar.gz"
+    exit 3
+fi
+
 
 docker build -t $1 .

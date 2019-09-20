@@ -1,16 +1,15 @@
 #!/bin/bash
 
 install_vundle() {
-	if [ ! -d  ${home}/.vim/bundle/ ]; then
-		mkdir -p ${home}/.vim/bundle/
+	if [ ! -d  ${HOME}/.vim/bundle/ ]; then
+		mkdir -p ${HOME}/.vim/bundle/
 	fi
-	git clone https://github.com/VundleVim/Vundle.vim.git ${home}/.vim/bundle/Vundle.vim
-	chown -R ${user}:${user} ${home}/.vim
+	git clone https://github.com/VundleVim/Vundle.vim.git ${HOME}/.vim/bundle/Vundle.vim
 }
 
 install_rtags() {
-	git clone --recursive https://github.com/Andersbakken/rtags.git ${home}/.emacs.d/rtags
-	cd ${home}/.emacs.d/rtags
+	git clone --recursive https://github.com/Andersbakken/rtags.git ${HOME}/.emacs.d/rtags
+	cd ${HOME}/.emacs.d/rtags
 	cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=1 .
 	make
 	sudo make install
@@ -18,23 +17,23 @@ install_rtags() {
 
 
 install_bear() {
-	git clone https://github.com/rizsotto/Bear.git ${home}/github/Bear
-	cd  ${home}/github/Bear
+	git clone https://github.com/rizsotto/Bear.git ${HOME}/github/Bear
+	cd  ${HOME}/github/Bear
 	cmake .
 	make all
 	sudo make install
 }
 
 install_emacs_plugin() {
-	git clone https://github.com/emacs-evil/goto-chg.git ${home}/.emacs.d/goto-chg
-	git clone http://www.dr-qubit.org/git/undo-tree.git ${home}/.emacs.d/undo-tree
-	git clone https://github.com/emacs-evil/evil ${home}/.emacs.d/evil
-	git clone https://github.com/lukhas/buffer-move.git ${home}/.emacs.d/buffer-move
-	git clone https://github.com/nschum/highlight-symbol.el.git ${home}/.emacs.d/highlight-symbol
-	git clone https://github.com/jaypei/emacs-neotree.git ${home}/.emacs.d/neotree
-        git clone https://github.com/richard-tai/evil-search-highlight-persist.git ${home}/.emacs.d/evil-search-highlight-persist
-	mkdir ${home}/.emacs.d/highlight
-	wget https://github.com/emacsmirror/emacswiki.org/raw/master/highlight.el ${home}/.emacs.d/highlight/
+	git clone https://github.com/emacs-evil/goto-chg.git ${HOME}/.emacs.d/goto-chg
+	git clone http://www.dr-qubit.org/git/undo-tree.git ${HOME}/.emacs.d/undo-tree
+	git clone https://github.com/emacs-evil/evil ${HOME}/.emacs.d/evil
+	git clone https://github.com/lukhas/buffer-move.git ${HOME}/.emacs.d/buffer-move
+	git clone https://github.com/nschum/highlight-symbol.el.git ${HOME}/.emacs.d/highlight-symbol
+	git clone https://github.com/jaypei/emacs-neotree.git ${HOME}/.emacs.d/neotree
+    git clone https://github.com/richard-tai/evil-search-highlight-persist.git ${HOME}/.emacs.d/evil-search-highlight-persist
+	mkdir ${HOME}/.emacs.d/highlight
+	wget https://github.com/emacsmirror/emacswiki.org/raw/master/highlight.el ${HOME}/.emacs.d/highlight/
 }
 
 
@@ -78,7 +77,7 @@ install_package() {
 }
 
 make_dirs() {
-	dirs="${home}/github"
+	dirs="${HOME}/github"
 	for d in ${dirs}; do
 		if [ ! -d ${d} ]; then
 			mkdir -p ${d}
@@ -88,9 +87,9 @@ make_dirs() {
 }
 
 copy_config() {
-	if [ ! -f  ${home}/.tmux.conf ]; then
-		cp ${SHELL_FOLDER}/../ubuntu/home/.vimrc ${home}
-		cp ${SHELL_FOLDER}/../ubuntu/home/.tmux.conf ${home}
-		cp ${SHELL_FOLDER}/../ubuntu/home/.emacs ${home}
+	if [ ! -f  ${HOME}/.tmux.conf ]; then
+		cp ${HOME}/github/env/ubuntu/home/.vimrc ${HOME}
+		cp ${HOME}/github/env/ubuntu/ubuntu/home/.tmux.conf ${HOME}
+		cp ${HOME}/github/env/ubuntu/ubuntu/home/.emacs ${HOME}
 	fi
 }

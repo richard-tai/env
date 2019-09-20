@@ -6,8 +6,7 @@ docker_context=/root/shared/docker_context
 source ${docker_context}/util/setup_common.sh
 
 cd ${docker_context}
-echo ${docker_context}
-unzip emacs.zip -d emacs
+unzip -q emacs.zip -d emacs
 if [ $? != 0 ]; then
     echo "bad zip"
     exit 1
@@ -19,6 +18,7 @@ pkgs="${pkgs} build-essential texinfo libx11-dev libxpm-dev \
     libncurses-dev"
 apt-get install ${pkgs} -y
 
+echo "build emacs"
 cd emacs/emacs-master
 ./autogen.sh
 ./configure --prefix=/usr --without-makeinfo --with-gnutls=no --without-x 

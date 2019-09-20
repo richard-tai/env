@@ -1,7 +1,7 @@
 #!/bin/bash
 
 user_make="sudo make"
-if [$USER == "root" ]; then
+if [ $USER == "root" ]; then
     user_make="make"
 fi
 
@@ -47,6 +47,7 @@ install_package() {
 	#add-apt-repository ppa:openjdk-r/ppa -y
 	#add-apt-repository ppa:apt-fast/stable -y
 	#apt update
+    git config --global http.postBuffer 1048576000
 
 	install_vundle
 

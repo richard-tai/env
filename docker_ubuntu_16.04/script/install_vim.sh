@@ -4,8 +4,7 @@ echo "<<< to install spf13-vim"
 
 docker_context=/root/shared/docker_context
 cd ${docker_context}
-echo ${docker_context}
-unzip vim.zip -d vim
+unzip -q vim.zip -d vim
 if [ $? != 0 ]; then
     echo "bad zip"
     exit 1

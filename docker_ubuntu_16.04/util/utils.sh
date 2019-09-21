@@ -1,5 +1,15 @@
 #!/usr/bin/env bash
 
+function get_file_extenstion()
+{
+    echo $(echo $1 | sed 's/^.*\.//')
+}
+
+function get_file_name()
+{
+    echo $(echo $1 | sed 's/\.[^.]*$//')
+}
+
 function check_zip() {
     if [ -d tmp ]; then
         rm -rf tmp
@@ -19,7 +29,7 @@ function check_tar_gz() {
 
 function wget_file_with_cache() {
     echo "wget [$1] to [$2]."
-    extension=$(echo $1 | sed 's/^.*\.//')
+    extension=$(get_file_extenstion $1)
     echo "file extension: [${extension}]."
 
     if [ "$extension" == "zip" ]; then
@@ -46,3 +56,7 @@ function wget_file_with_cache() {
         return 2
     fi
 }
+
+## unit test
+#echo $(get_file_extenstion aa.bb.cc.tar)
+#echo $(get_file_name aa.bb.cc.tar)

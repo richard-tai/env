@@ -1,6 +1,7 @@
 FROM ubuntu:16.04
 
-ENV work_dir=/root/shared/docker_context
+ENV work_dir=/root/shared/docker_context \
+    DEBIAN_FRONTEND=noninteractive
 
 COPY . $work_dir
 

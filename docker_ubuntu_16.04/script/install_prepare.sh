@@ -9,14 +9,16 @@ echo "
 185.199.111.153 assets-cdn.github.com
 199.232.5.194   github.global.ssl.fastly.net
 " >> /etc/hosts
-/etc/init.d/networking restart
+
+if [ -f /etc/init.d/networking ]; then
+    /etc/init.d/networking restart
+fi
 
 cp ${docker_context}/ubuntu/etc/apt/sources.list /etc/apt/sources.list
 
 apt-get update
-
-pkgs="git wget curl make cmake apt-utils unzip tar autoconf"
-
+         
+pkgs="git wget curl make cmake unzip tar autoconf apt-utils"
 apt-get install ${pkgs} -y
 
 git config --global http.postBuffer 1048576000

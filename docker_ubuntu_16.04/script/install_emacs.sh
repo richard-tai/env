@@ -3,9 +3,8 @@
 echo "<<< to install emacs"
 
 docker_context=/root/shared/docker_context
-source ${docker_context}/util/setup_common.sh
 
-cd ${docker_context}
+cd ${docker_context}/packages
 unzip -q emacs.zip -d emacs
 if [ $? != 0 ]; then
     echo "bad zip"
@@ -24,7 +23,7 @@ cd emacs/emacs-master
 ./configure --prefix=/usr --without-makeinfo --with-gnutls=no --without-x 
 make -j 8 && make install
 
-copy_config
-install_package
+cp ${HOME}/github/env/ubuntu/home/.tmux.conf ${HOME}
+cp ${HOME}/github/env/ubuntu/home/.emacs ${HOME}
 
 echo "<<< installed emacs"

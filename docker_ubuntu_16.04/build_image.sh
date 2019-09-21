@@ -1,71 +1,38 @@
 #!/usr/bin/env bash
 
-function download_vim() {
-    echo "download vim"
-    wget -O vim.zip -c -t 0 https://github.com/vim/vim/archive/master.zip
-}
+source util/utils.sh
 
-function download_emacs() {
-    echo "download emacs"
-    #wget -O emacs.tar.gz -c -t 0 https://git.savannah.gnu.org/cgit/emacs.git/snapshot/emacs-26.3.tar.gz
-    wget -O emacs.zip -c -t 0 https://github.com/emacs-mirror/emacs/archive/master.zip
-}
-
-function check_zip() {
-    if [ -d tmp ]; then
-        rm -rf tmp
-    fi
-    unzip -q $1 -d tmp
-    return $?
-}
-
-function check_tar_gz() {
-    if [ -d tmp ]; then
-        rm -rf tmp
-    fi
-    mkdir tmp
-    tar -xzf  $1 -C tmp
-    return $?
-}
-
-if [ $# != 1 ]; then
-    echo "$0 <name:tag>"
-    exit 1
+if [ ! -d packages ]; then
+    mkdir packages
 fi
 
-## download vim
-if [ ! -f vim.zip ]; then
-    download_vim
-else
-    check_zip vim.zip
-    if [ $? != 0 ]; then
-        echo "vim bad zip"
-        download_vim
-    fi
-fi
+echo "download vim related packages..."
+wget_file_with_cache https://github.com/vim/vim/archive/master.zip packages/vim.zip
+wget_file_with_cache https://github.com/VundleVim/Vundle.vim/archive/master.zip Vundls.vim.zip # ${HOME}/.vim/bundle/Vundle.vim
 
-check_zip vim.zip
-if [ $? != 0 ]; then
-    echo "vim bad zip"
-    exit 2
-fi
 
-## download emacs
-if [ ! -f emacs.zip ]; then
-    download_emacs
-else
-    check_zip emacs.zip
-    if [ $? != 0 ]; then
-        echo "emacs bad zip"
-        download_emacs
-    fi
-fi
+echo "download emacs related packages..."
+wget_file_with_cache https://github.com/emacs-mirror/emacs/archive/master.zip packages/emacs.zip
 
-check_zip emacs.zip
-if [ $? != 0 ]; then
-    echo "emacs bad zip"
-    exit 3
-fi
+wget_file_with_cache https://github.com/rizsotto/Bear/archive/master.zip bear.zip
+
+wget_file_with_cache https://github.com/Andersbakken/rtags/archive/master.zip rtags.zip # ${HOME}/.emacs.d/rtags
+
+wget_file_with_cache https://github.com/emacs-evil/goto-chg/archive/master.zip goto-chg.zip # ${HOME}/.emacs.d/goto-chg
+
+wget_file_with_cache https://github.com/lukhas/buffer-move/archive/master.zip buffer-move.zip # ${HOME}/.emacs.d/buffer-move
+
+wget_file_with_cache https://github.com/nschum/highlight-symbol.el/archive/master.zip highlight-symbol # ${HOME}/.emacs.d/highlight-symbol
+
+wget_file_with_cache https://github.com/jaypei/emacs-neotree/archive/dev.zip neotree.zip # ${HOME}/.emacs.d/neotree
+
+wget_file_with_cache https://github.com/richard-tai/evil-search-highlight-persist/archive/master.zip evil-search-highlight-persist.zip # ${HOME}/.emacs.d/evil-search-highlight-persist
+
+wget_file_with_cache https://github.com/emacsmirror/emacswiki.org/raw/master/highlight.el highlight.el # ${HOME}/.emacs.d/highlight/
+
+
+echo "change apt source"
+cp ubuntu/etc/apt/sources.list.16.04.local ubuntu/etc/apt/sources.list
 
 
 docker build -t $1 .

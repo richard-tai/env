@@ -1,8 +1,12 @@
 #!/bin/bash
 
-user_make="sudo make"
-if [ $USER == "root" ]; then
-    user_make="make"
+echo "user name: $USER"
+user_make="make -j 4"
+if [ "$USER" != "root" ]; then
+    user_make="sudo make -j 4"
+fi
+if [ "$USER" == "" ]; then
+    user_make="make -j 4"
 fi
 
 install_vundle() {
@@ -30,8 +34,9 @@ install_bear() {
 }
 
 install_emacs_plugin() {
-	git clone https://github.com/emacs-evil/goto-chg.git ${HOME}/.emacs.d/goto-chg
 	git clone http://www.dr-qubit.org/git/undo-tree.git ${HOME}/.emacs.d/undo-tree
+
+	git clone https://github.com/emacs-evil/goto-chg.git ${HOME}/.emacs.d/goto-chg
 	git clone https://github.com/emacs-evil/evil ${HOME}/.emacs.d/evil
 	git clone https://github.com/lukhas/buffer-move.git ${HOME}/.emacs.d/buffer-move
 	git clone https://github.com/nschum/highlight-symbol.el.git ${HOME}/.emacs.d/highlight-symbol
@@ -94,7 +99,7 @@ make_dirs() {
 
 copy_config() {
 	if [ ! -f  ${HOME}/.tmux.conf ]; then
-		cp ${HOME}/github/env/ubuntu/home/.vimrc ${HOME}
+		#cp ${HOME}/github/env/ubuntu/home/.vimrc ${HOME}
 		cp ${HOME}/github/env/ubuntu/home/.tmux.conf ${HOME}
 		cp ${HOME}/github/env/ubuntu/home/.emacs ${HOME}
 	fi

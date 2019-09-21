@@ -1,0 +1,8 @@
+deb http://10.64.64.195/ubuntu/ xenial main restricted universe multiverse
+# deb-src http://10.64.64.195/ubuntu/ xenial main restricted universe multiverse
+deb http://10.64.64.195/ubuntu/ xenial-updates main restricted universe multiverse
+# deb-src http://10.64.64.195/ubuntu/ xenial-updates main restricted universe multiverse
+deb http://10.64.64.195/ubuntu/ xenial-backports main restricted universe multiverse
+# deb-src http://10.64.64.195/ubuntu/ xenial-backports main restricted universe multiverse
+deb http://10.64.64.195/ubuntu/ xenial-security main restricted universe multiverse
+# deb-src http://10.64.64.195/ubuntu/ xenial-security main restricted universe multiverse

@@ -3,7 +3,7 @@
 echo "<<< to install spf13-vim"
 
 docker_context=/root/shared/docker_context
-cd ${docker_context}
+cd ${docker_context}/packages
 unzip -q vim.zip -d vim
 if [ $? != 0 ]; then
     echo "bad zip"
@@ -17,6 +17,7 @@ pkgs="${pkgs} libncurses5-dev libgnome2-dev libgnomeui-dev \
 
 apt-get install ${pkgs} -y
 
+echo "install vim..."
 cd vim/vim-master
 ./configure \
         --with-features=huge \
@@ -31,6 +32,7 @@ cd vim/vim-master
         --prefix=/usr
 make -j 8 && make install
 
+echo "install spf13..."
 curl http://j.mp/spf13-vim3 -L -o - | sh
 
 echo "<<< installed spf13-vim"

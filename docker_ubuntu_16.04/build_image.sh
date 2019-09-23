@@ -16,8 +16,6 @@ wget_file_with_cache https://github.com/emacs-mirror/emacs/archive/master.zip pa
 
 wget_file_with_cache https://github.com/rizsotto/Bear/archive/master.zip packages/bear.zip
 
-wget_file_with_cache https://github.com/Andersbakken/rtags/archive/master.zip packages/rtags.zip # ${HOME}/.emacs.d/rtags
-
 wget_file_with_cache https://github.com/emacs-evil/goto-chg/archive/master.zip packages/goto-chg.zip # ${HOME}/.emacs.d/goto-chg
 
 wget_file_with_cache https://github.com/lukhas/buffer-move/archive/master.zip packages/buffer-move.zip # ${HOME}/.emacs.d/buffer-move
@@ -35,4 +33,5 @@ echo "change apt source"
 cp ubuntu/etc/apt/sources.list.16.04.local ubuntu/etc/apt/sources.list
 
 
+echo "docker build ..."
 docker build -t $1 .

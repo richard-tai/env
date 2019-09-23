@@ -5,30 +5,46 @@ echo "install emacs ..."
 docker_context=/root/shared/docker_context
 source ${docker_context}/util/utils.sh
 
+
+echo "install rtags ..."
 cd ${docker_context}/packages
+#unzip_to_dir rtags.zip rtags-master rtags
+git clone --recursive git://github.com/Andersbakken/rtags.git rtags
+cd rtags && cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=1 . && make -j8 >/dev/null && make install
+if [[ $? -ne 0 ]]; then
+    echo "install rtags fail."
+    exit 1
+fi
+
+
+echo "install bear ..."
+cd ${docker_context}/packages
+unzip_to_dir bear.zip Bear-master bear
+cd bear && cmake . &&  make -j8 all >/dev/null && make install
+if [[ $? -ne 0 ]]; then
+    echo "install bear fail."
+    exit 2
+fi
+
+
 echo "build emacs ..."
+cd ${docker_context}/packages
 unzip -q emacs.zip -d emacs
 if [ $? != 0 ]; then
     echo "bad zip"
     exit 1
 fi
 cd emacs/emacs-master
-./autogen.sh
-./configure --prefix=/usr --without-makeinfo --with-gnutls=no --without-x 
-make -j 8 && make install
+./autogen.sh >/dev/null
+./configure --prefix=/usr --without-makeinfo --with-gnutls=no --without-x  >/dev/null
+make -j8 >/dev/null && make install
+if [[ $? -ne 0 ]]; then
+    echo "install emacs fail."
+    exit 2
+fi
 rm -rf emacs
 
 
-
-cd ${docker_context}/packages
-echo "install bear ..."
-unzip_to_dir bear.zip Bear-master bear
-cd bear && cmake . &&  make -j8 all && make install
-
-echo "install rtags ..."
-cd ${docker_context}/packages
-unzip_to_dir rtags.zip rtags-master rtags
-cd rtags && cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=1 . && make -j8 && install
 
 for one_pkg in  \
                 goto-chg \

@@ -24,7 +24,7 @@ cd vim/vim-master
         --enable-gui=gtk2 \
         --enable-cscope \
         --prefix=/usr
-make -j 8 && make install
+make -j8 >/dev/null && make install
 
 echo "install spf13 ..."
 cd ${docker_context}/packages

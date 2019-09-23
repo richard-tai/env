@@ -1,23 +1,17 @@
 #!/usr/bin/env bash
 
-echo "<<< to install spf13-vim"
+echo "<<< install spf13-vim ..."
 
 docker_context=/root/shared/docker_context
+source ${docker_context}/util/utils.sh
+
+echo "install vim ..."
 cd ${docker_context}/packages
 unzip -q vim.zip -d vim
 if [ $? != 0 ]; then
     echo "bad zip"
     exit 1
 fi
-
-pkgs="${pkgs} libncurses5-dev libgnome2-dev libgnomeui-dev \
-      libgtk2.0-dev libatk1.0-dev libbonoboui2-dev \
-      libcairo2-dev libx11-dev libxpm-dev libxt-dev python-dev \
-      python3-dev ruby-dev lua5.1 lua5.1-dev libperl-dev"
-
-apt-get install ${pkgs} -y
-
-echo "install vim..."
 cd vim/vim-master
 ./configure \
         --with-features=huge \
@@ -32,7 +26,11 @@ cd vim/vim-master
         --prefix=/usr
 make -j 8 && make install
 
-echo "install spf13..."
+echo "install spf13 ..."
+cd ${docker_context}/packages
 curl https://j.mp/spf13-vim3 -L > spf13-vim.sh && sh spf13-vim.sh
+
+#cd ${docker_context}
+#cp ubuntu/home/.vimrc ${HOME}
 
 echo "<<< installed spf13-vim"

@@ -6,12 +6,12 @@ source util/utils.sh
 
 work_dir=$(pwd)
 
-if [[ ! -d packages ]]; then
-    mkdir packages
+if [[ ! -d ${work_dir}/packages ]]; then
+    mkdir -p ${work_dir}/packages
 fi
-cd packages
 
 echo "download vim related packages..."
+cd ${work_dir}/packages
 wget_file_with_cache https://github.com/vim/vim/archive/master.zip vim.zip
 wget_file_with_cache https://github.com/VundleVim/Vundle.vim/archive/master.zip Vundls.vim.zip # ${HOME}/.vim/bundle/Vundle.vim
 echo "used $(($(date +"%s")-${start_time})) seconds in [$0]."
@@ -35,6 +35,7 @@ fi
 echo "used $(($(date +"%s")-${start_time})) seconds in [$0]."
 
 echo "download spf13-vim.sh ..."
+cd ${work_dir}/packages
 if [[ ! -f spf13-vim.sh ]]; then
     curl https://j.mp/spf13-vim3 -L > spf13-vim.sh
 else
@@ -43,6 +44,7 @@ fi
 echo "used $(($(date +"%s")-${start_time})) seconds in [$0]."
 
 echo "download emacs related packages..."
+cd ${work_dir}/packages
 wget_file_with_cache https://github.com/emacs-mirror/emacs/archive/master.zip emacs.zip
 wget_file_with_cache https://github.com/rizsotto/Bear/archive/master.zip bear.zip
 wget_file_with_cache https://github.com/emacs-evil/goto-chg/archive/master.zip goto-chg.zip # ${HOME}/.emacs.d/goto-chg
@@ -54,6 +56,7 @@ wget_file_with_cache https://github.com/emacsmirror/emacswiki.org/raw/master/hig
 echo "used $(($(date +"%s")-${start_time})) seconds in [$0]."
 
 echo "download rtags ..."
+cd ${work_dir}/packages
 if [[ ! -d rtags ]]; then
     git clone --recursive https://github.com/Andersbakken/rtags.git rtags
 else

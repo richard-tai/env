@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+start_time=$(date +"%s")
+echo "enter [$0]."
+
 docker_context=/root/shared/docker_context
 
 echo "set hosts ..."
@@ -17,6 +20,7 @@ fi
 echo "set apt source ..."
 cp ${docker_context}/ubuntu/etc/apt/sources.list /etc/apt/sources.list
 apt-get update
+echo "used $(($(date +"%s")-${start_time})) seconds in [$0]."
          
 echo "install packages ..."
 pkgs="git wget curl make cmake unzip tar autoconf apt-utils \
@@ -29,7 +33,8 @@ pkgs="git wget curl make cmake unzip tar autoconf apt-utils \
       libgtk-3-dev libncurses-dev libxpm-dev automake autoconf \
       libncurses-dev llvm clang libclang-dev bash-completion \
       htop tree ctags tmux"
-apt-get install ${pkgs} -y
+apt-get install ${pkgs} -y >/dev/null
+echo "used $(($(date +"%s")-${start_time})) seconds in [$0]."
 
 echo "set .tmux.conf ..."
 cd ${docker_context}
@@ -37,4 +42,6 @@ cp ubuntu/home/.tmux.conf ${HOME}
 
 echo "set git buffer ..."
 git config --global http.postBuffer 1048576000
+echo "used $(($(date +"%s")-${start_time})) seconds in [$0]."
+echo "leave [$0]."
 

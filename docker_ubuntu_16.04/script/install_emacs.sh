@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
-echo "install emacs ..."
+start_time=$(date +"%s")
+echo "enter [$0]."
 
 docker_context=/root/shared/docker_context
 source ${docker_context}/util/utils.sh
@@ -8,13 +9,13 @@ source ${docker_context}/util/utils.sh
 
 echo "install rtags ..."
 cd ${docker_context}/packages
-#unzip_to_dir rtags.zip rtags-master rtags
-git clone --recursive git://github.com/Andersbakken/rtags.git rtags
+#git clone --recursive https://github.com/Andersbakken/rtags.git rtags
 cd rtags && cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=1 . && make -j8 >/dev/null && make install
 if [[ $? -ne 0 ]]; then
     echo "install rtags fail."
     exit 1
 fi
+echo "used $(($(date +"%s")-${start_time})) seconds in [$0]."
 
 
 echo "install bear ..."
@@ -25,6 +26,7 @@ if [[ $? -ne 0 ]]; then
     echo "install bear fail."
     exit 2
 fi
+echo "used $(($(date +"%s")-${start_time})) seconds in [$0]."
 
 
 echo "build emacs ..."
@@ -43,6 +45,7 @@ if [[ $? -ne 0 ]]; then
     exit 2
 fi
 rm -rf emacs
+echo "used $(($(date +"%s")-${start_time})) seconds in [$0]."
 
 
 
@@ -64,6 +67,7 @@ do
     cd ${docker_context}/packages
     unzip_to_dir ${one_pkg}.zip ${master_name} ${HOME}/.emacs.d/${one_pkg}
 done
+echo "used $(($(date +"%s")-${start_time})) seconds in [$0]."
 
 echo "install highlight ..."
 cd ${docker_context}/packages
@@ -73,5 +77,5 @@ echo "install .emacs ..."
 cd ${docker_context}
 cp ubuntu/home/.emacs ${HOME}
 
-
-echo "installed emacs."
+echo "used $(($(date +"%s")-${start_time})) seconds in [$0]."
+echo "leave [$0]."

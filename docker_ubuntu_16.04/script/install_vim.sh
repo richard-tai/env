@@ -24,7 +24,7 @@ cd vim/vim-master
         --enable-luainterp=yes \
         --enable-gui=gtk2 \
         --enable-cscope \
-        --prefix=/usr
+        --prefix=/usr >/dev/null
 make -j8 >/dev/null && make install
 echo "used $(($(date +"%s")-${start_time})) seconds in [$0]."
 
@@ -36,7 +36,9 @@ if [[ ! -e ${HOME}/.vim/bundle/vundle ]]; then
 fi
 rm -r ${HOME}/.vim/bundle/vundle
 mv vundle ${HOME}/.vim/bundle/vundle
-curl https://j.mp/spf13-vim3 -L > spf13-vim.sh && sh spf13-vim.sh
+git config --global http.postBuffer 1048576000
+#curl https://j.mp/spf13-vim3 -L > spf13-vim.sh && 
+sh spf13-vim.sh
 
 #cd ${docker_context}
 #cp ubuntu/home/.vimrc ${HOME}

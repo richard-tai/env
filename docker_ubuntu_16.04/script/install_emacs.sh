@@ -10,7 +10,8 @@ source ${docker_context}/util/utils.sh
 echo "install rtags ..."
 cd ${docker_context}/packages
 #git clone --recursive https://github.com/Andersbakken/rtags.git rtags
-cd rtags && cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=1 . && make -j8 >/dev/null && make install
+cp -r rtags ${HOME}/.emacs.d/
+cd ${HOME}/.emacs.d/rtags && cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=1 . && make -j8 >/dev/null && make install
 if [[ $? -ne 0 ]]; then
     echo "install rtags fail."
     exit 1
@@ -48,7 +49,6 @@ rm -rf emacs
 echo "used $(($(date +"%s")-${start_time})) seconds in [$0]."
 
 
-
 for one_pkg in  \
                 goto-chg \
                 buffer-move \
@@ -69,13 +69,20 @@ do
 done
 echo "used $(($(date +"%s")-${start_time})) seconds in [$0]."
 
-echo "install highlight ..."
+
 cd ${docker_context}/packages
-cp highlight.el ${HOME}/.emacs.d/
+for one_plugin in highlight undo-tree evil company
+do
+    echo "install ${one_plugin} ..."
+    cp -r ${one_plugin} ${HOME}/.emacs.d/
+done
+echo "used $(($(date +"%s")-${start_time})) seconds in [$0]."
+
 
 echo "install .emacs ..."
 cd ${docker_context}
 cp ubuntu/home/.emacs ${HOME}
+
 
 echo "used $(($(date +"%s")-${start_time})) seconds in [$0]."
 echo "leave [$0]."

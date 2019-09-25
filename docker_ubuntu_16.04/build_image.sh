@@ -52,8 +52,39 @@ wget_file_with_cache https://github.com/lukhas/buffer-move/archive/master.zip bu
 wget_file_with_cache https://github.com/nschum/highlight-symbol.el/archive/master.zip highlight-symbol.zip # ${HOME}/.emacs.d/highlight-symbol
 wget_file_with_cache https://github.com/jaypei/emacs-neotree/archive/dev.zip neotree.zip # ${HOME}/.emacs.d/neotree
 wget_file_with_cache https://github.com/richard-tai/evil-search-highlight-persist/archive/master.zip evil-search-highlight-persist.zip # ${HOME}/.emacs.d/evil-search-highlight-persist
-wget_file_with_cache https://github.com/emacsmirror/emacswiki.org/raw/master/highlight.el highlight.el # ${HOME}/.emacs.d/highlight/
-echo "used $(($(date +"%s")-${start_time})) seconds in [$0]."
+
+echo "download highlight ..."
+cd ${work_dir}/packages
+if [[ ! -d highlight ]]; then
+    mkdir highlight
+fi
+if [[ ! -e highlight/highlight.el ]]; then
+    wget_file_with_cache https://github.com/emacsmirror/emacswiki.org/raw/master/highlight.el highlight/highlight.el # ${HOME}/.emacs.d/highlight/
+fi
+
+echo "download undo-tree ..."
+cd ${work_dir}/packages
+if [[ ! -e undo-tree ]]; then
+    git clone http://www.dr-qubit.org/git/undo-tree.git undo-tree # ${HOME}/.emacs.d/undo-tree
+else
+    cd undo-tree && git pull
+fi
+
+echo "download evil ..."
+cd ${work_dir}/packages
+if [[ ! -e evil ]]; then
+git clone https://github.com/emacs-evil/evil evil # ${HOME}/.emacs.d/evil
+else
+    cd evil && git pull
+fi
+
+echo "download company ..."
+cd ${work_dir}/packages
+if [[ ! -e company ]]; then
+    git clone https://github.com/company-mode/company-mode.git company
+else
+    cd company && git pull
+fi
 
 echo "download rtags ..."
 cd ${work_dir}/packages

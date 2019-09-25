@@ -60,8 +60,8 @@
 (load-theme 'tsdh-dark t)
 
 ;; company https://company-mode.github.io/
-(require 'company)
 (add-to-list 'load-path "~/.emacs.d/company")
+(require 'company)
 (add-hook 'after-init-hook 'global-company-mode)
 (setq company-show-numbers t)
 (setq company-idle-delay 0.2)

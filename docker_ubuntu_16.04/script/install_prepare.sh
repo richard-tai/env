@@ -3,14 +3,14 @@
 start_time=$(date +"%s")
 echo "enter [$0]."
 
-docker_context=/root/shared/docker_context
+source util/utils.sh
 
 echo "set hosts ..."
-echo "
-192.30.253.120  codeload.github.com
-140.82.114.3    github.com
-185.199.111.153 assets-cdn.github.com
-199.232.5.194   github.global.ssl.fastly.net
+echo " \
+192.30.253.120  codeload.github.com \
+140.82.114.3    github.com \
+185.199.111.153 assets-cdn.github.com \
+199.232.5.194   github.global.ssl.fastly.net \
 " >> /etc/hosts
 
 if [ -f /etc/init.d/networking ]; then
@@ -38,7 +38,8 @@ pkgs="git wget curl make cmake unzip tar autoconf apt-utils \
       net-tools libssl-dev autoconf zlib1g-dev libbz2-dev pstack \
       openjdk-8-jdk libqt4-dev pkg-config libavcodec-dev libavformat-dev \
       libswscale-dev libopenblas-base libsdl2-dev libsdl2-image-dev \
-      libdc1394-22-dev cmake-qt-gui libgnutls-dev libtiff5-dev"
+      libdc1394-22-dev cmake-qt-gui libgnutls-dev libtiff5-dev \
+      inetutils-ping"
 apt-get install ${pkgs} -y >/dev/null
 if [[ $? -ne 0 ]]; then
     echo "install fail."
@@ -50,8 +51,6 @@ echo "set .tmux.conf ..."
 cd ${docker_context}
 cp ubuntu/home/.tmux.conf ${HOME}
 
-echo "set git buffer ..."
-git config --global http.postBuffer 1048576000
 echo "used $(($(date +"%s")-${start_time})) seconds in [$0]."
 echo "leave [$0]."
 

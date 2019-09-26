@@ -1,15 +1,14 @@
 #!/usr/bin/env bash
 
+
 start_time=$(date +"%s")
 echo "enter [$0]."
+
+source util/utils.sh
 
 if [[ ! -e  ${HOME}/.emacs.d/ ]]; then
     mkdir -p ${HOME}/.emacs.d/
 fi
-
-docker_context=/root/shared/docker_context
-source ${docker_context}/util/utils.sh
-
 
 echo "install rtags ..."
 cd ${docker_context}/packages

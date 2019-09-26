@@ -1,5 +1,16 @@
 #!/usr/bin/env bash
 
+## global variable
+docker_context=${HOME}/github/env/docker_ubuntu_16.04
+
+
+## config
+which git
+if [[ $? -eq 0 ]]; then
+    git config --global http.postBuffer 1048576000
+fi
+
+
 function get_file_extenstion()
 {
     echo $(echo $1 | sed 's/^.*\.//')

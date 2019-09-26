@@ -3,8 +3,7 @@
 start_time=$(date +"%s")
 echo "enter [$0]."
 
-docker_context=/root/shared/docker_context
-source ${docker_context}/util/utils.sh
+source util/utils.sh
 
 echo "install vim ..."
 cd ${docker_context}/packages
@@ -28,20 +27,24 @@ cd vim/vim-master
 make -j8 >/dev/null && make install
 echo "used $(($(date +"%s")-${start_time})) seconds in [$0]."
 
-echo "install spf13 ..."
+echo "install vundle ..."
 cd ${docker_context}/packages
-mv spf13-vim ${HOME}/.spf13-vim-3
-if [[ ! -e ${HOME}/.vim/bundle/vundle ]]; then
-    mkdir -p ${HOME}/.vim/bundle/vundle
+if [[ ! -e ${HOME}/.vim/bundle/xxx ]]; then
+    mkdir -p ${HOME}/.vim/bundle/xxx
 fi
-rm -r ${HOME}/.vim/bundle/vundle
-mv vundle ${HOME}/.vim/bundle/vundle
-git config --global http.postBuffer 1048576000
-#curl https://j.mp/spf13-vim3 -L > spf13-vim.sh && 
-sh spf13-vim.sh
+rm -r ${HOME}/.vim/bundle/xxx
+mv vundle ${HOME}/.vim/bundle/Vundle.vim
 
-#cd ${docker_context}
-#cp ubuntu/home/.vimrc ${HOME}
+#echo "install spf13 ..."
+#cd ${docker_context}/packages
+#mv spf13-vim ${HOME}/.spf13-vim-3
+#curl https://j.mp/spf13-vim3 -L > spf13-vim.sh && 
+#sh spf13-vim.sh
+
+cd ${docker_context}
+cp ubuntu/home/.vimrc ${HOME}
+vim "+set nomore" "+BundleInstall!" "+BundleClean" "+qall"
+
 
 echo "used $(($(date +"%s")-${start_time})) seconds in [$0]."
 echo "leave [$0]."

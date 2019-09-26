@@ -91,10 +91,9 @@ Plugin 'scrooloose/nerdtree' "文件目录
 
 Plugin 'kien/ctrlp.vim' "快速查找
 
-Plugin 'scrooloose/nerdcommenter' "快速注释
-
-Plug 'iamcco/mathjax-support-for-mkdp'
-Plug 'iamcco/markdown-preview.vim'
+"Plugin 'scrooloose/nerdcommenter' "快速注释
+"Plug 'iamcco/mathjax-support-for-mkdp'
+"Plug 'iamcco/markdown-preview.vim'
 
 "自动补全
 Plugin 'Shougo/neocomplcache.vim'

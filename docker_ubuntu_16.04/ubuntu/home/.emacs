@@ -162,6 +162,9 @@
   :init-value t :lighter "")
 (my-keys-minor-mode 1)
 
+(setq-default auto-save-timeout 15) ; 15秒无动作,自动保存
+(setq-default auto-save-interval 100) ; 100个字符间隔, 自动保存
+(setq make-backup-files nil)
 
 (defun split-right-and-buffer-list ()
   (interactive)

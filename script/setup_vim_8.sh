@@ -5,6 +5,8 @@
 install_deps() {
     echo "install_deps..."
     sudo dnf install ctags cscope -y
+    # for ycm
+    sudo dnf install cmake gcc-c++ make python3-devel -y
 }
 
 install_vim_plugin() {
@@ -91,14 +93,30 @@ install_vim_plugin() {
 	fi
     fi
 
+    delimtMate_dir=~/.vim/pack/dist/start/delimitMate
+    if [ ! -d ${delimtMate_dir}  ]; then
+	git clone https://github.com/Raimondi/delimitMate.git ${delimtMate_dir}
+	if [ $? -ne 0 ]; then
+	    echo "error, clone fail"
+	    if [ ! -d ${delimtMate_dir} ]; then
+		rm -r ${delimtMate_dir}
+	    fi
+	fi
+    fi
+
     ycm_dir=~/.vim/pack/dist/start/YouCompleteMe
     if [ ! -d ${ycm_dir}  ]; then
-	git clone https://github.com/ycm-core/YouCompleteMe.git ${ycm_dir}
+	git clone --recurse-submodules https://github.com/ycm-core/YouCompleteMe.git ${ycm_dir}
 	if [ $? -ne 0 ]; then
 	    echo "error, clone fail"
 	    if [ ! -d ${ycm_dir} ]; then
 		rm -r ${ycm_dir}
 	    fi
+	else
+	    ex_pwd=$(pwd)
+	    cd ${ycm_dir}
+	    python3 install.py --clang-completer --go-completer
+	    cd ${ex_pwd}
 	fi
     fi
 }

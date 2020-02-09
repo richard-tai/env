@@ -1,3 +1,5 @@
+set nocompatible
+
 set number
 set hlsearch
 set incsearch
@@ -52,6 +54,7 @@ set backspace=indent,eol,start
 " Also run `goimports` on your current file on every save
 " Might be be slow on large codebases, if so, just comment it out
 let g:go_fmt_command = "goimports"
+" au FileType go silent exe "GoGuruScope " . go#package#ImportPath(expand('%:p:h')) . "..."
 
 " Status line types/signatures.
 let g:go_auto_type_info = 1
@@ -96,3 +99,6 @@ let g:airline_right_alt_sep = ''
 let g:airline_symbols.branch = ''
 let g:airline_symbols.readonly = ''
 let g:airline_symbols.linenr = ''
+
+" tagbar
+nmap <leader>tb :TagbarToggle<CR>

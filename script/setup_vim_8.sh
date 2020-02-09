@@ -52,6 +52,17 @@ install_vim_plugin() {
 	    fi
 	fi
     fi
+
+    tagbar_dir=~/.vim/pack/dist/start/tagbar
+    if [ ! -d ${tagbar_dir}  ]; then
+	git clone https://github.com/majutsushi/tagbar.git ${tagbar_dir}
+	if [ $? -ne 0 ]; then
+	    echo "error, tagbar clone fail"
+	    if [ ! -d ${tagbar_dir} ]; then
+		rm -r ${tagbar_dir}
+	    fi
+	fi
+    fi
 }
 
 

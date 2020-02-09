@@ -2,6 +2,11 @@
 
 # https://tpaschalis.github.io/vim-go-setup/
 
+install_deps() {
+    echo "install_deps..."
+    sudo dnf install ctags cscope -y
+}
+
 install_vim_plugin() {
     echo "install_vim_plugin..."
 
@@ -9,7 +14,7 @@ install_vim_plugin() {
     if [ ! -d ${vim_go_dir}  ]; then
 	git clone https://github.com/fatih/vim-go.git ${vim_go_dir}
 	if [ $? -ne 0 ]; then
-	    echo "error, vim-go clone fail"
+	    echo "error, clone fail"
 	    if [ ! -d ${vim_go_dir} ]; then
 		rm -r ${vim_go_dir}
 	    fi
@@ -24,7 +29,7 @@ install_vim_plugin() {
     if [ ! -d ${nerdtree_dir}  ]; then
 	git clone https://github.com/scrooloose/nerdtree.git ${nerdtree_dir}
 	if [ $? -ne 0 ]; then
-	    echo "error, nerdtree clone fail"
+	    echo "error, clone fail"
 	    if [ ! -d ${nerdtree_dir} ]; then
 		rm -r ${nerdtree_dir}
 	    fi
@@ -35,7 +40,7 @@ install_vim_plugin() {
     if [ ! -d ${vim_airline_dir}  ]; then
 	git clone https://github.com/vim-airline/vim-airline  ${vim_airline_dir}
 	if [ $? -ne 0 ]; then
-	    echo "error, vim-airline clone fail"
+	    echo "error, clone fail"
 	    if [ ! -d ${vim_airline_dir} ]; then
 		rm -r ${vim_airline_dir}
 	    fi
@@ -46,7 +51,7 @@ install_vim_plugin() {
     if [ ! -d ${vim_fugitive_dir}  ]; then
 	git clone https://github.com/tpope/vim-fugitive.git ${vim_fugitive_dir}
 	if [ $? -ne 0 ]; then
-	    echo "error, vim-fugitive clone fail"
+	    echo "error, clone fail"
 	    if [ ! -d ${vim_fugitive_dir} ]; then
 		rm -r ${vim_fugitive_dir}
 	    fi
@@ -57,9 +62,42 @@ install_vim_plugin() {
     if [ ! -d ${tagbar_dir}  ]; then
 	git clone https://github.com/majutsushi/tagbar.git ${tagbar_dir}
 	if [ $? -ne 0 ]; then
-	    echo "error, tagbar clone fail"
+	    echo "error, clone fail"
 	    if [ ! -d ${tagbar_dir} ]; then
 		rm -r ${tagbar_dir}
+	    fi
+	fi
+    fi
+
+    ctrlp_dir=~/.vim/pack/dist/start/ctrlp
+    if [ ! -d ${ctrlp_dir}  ]; then
+	git clone https://github.com/kien/ctrlp.vim.git ${ctrlp_dir}
+	if [ $? -ne 0 ]; then
+	    echo "error, clone fail"
+	    if [ ! -d ${ctrlp_dir} ]; then
+		rm -r ${ctrlp_dir}
+	    fi
+	fi
+    fi
+
+    taglist_dir=~/.vim/pack/dist/start/taglist
+    if [ ! -d ${taglist_dir}  ]; then
+	git clone https://github.com/vim-scripts/taglist.vim.git ${taglist_dir}
+	if [ $? -ne 0 ]; then
+	    echo "error, clone fail"
+	    if [ ! -d ${taglist_dir} ]; then
+		rm -r ${taglist_dir}
+	    fi
+	fi
+    fi
+
+    ycm_dir=~/.vim/pack/dist/start/YouCompleteMe
+    if [ ! -d ${ycm_dir}  ]; then
+	git clone https://github.com/ycm-core/YouCompleteMe.git ${ycm_dir}
+	if [ $? -ne 0 ]; then
+	    echo "error, clone fail"
+	    if [ ! -d ${ycm_dir} ]; then
+		rm -r ${ycm_dir}
 	    fi
 	fi
     fi
@@ -72,6 +110,7 @@ copy_vim_config() {
 }
 
 setup_vim() {
+    install_deps
     copy_vim_config
     install_vim_plugin
 }

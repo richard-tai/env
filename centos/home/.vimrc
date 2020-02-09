@@ -3,6 +3,7 @@ set nocompatible
 set number
 set hlsearch
 set incsearch
+set showcmd
 
 set autowriteall
 

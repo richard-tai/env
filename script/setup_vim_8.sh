@@ -4,7 +4,7 @@
 
 install_deps() {
     echo "install_deps..."
-    sudo dnf install ctags cscope -y
+    sudo dnf install git golang ctags cscope -y
     # for ycm
     sudo dnf install cmake gcc-c++ make python3-devel -y
 }

@@ -128,7 +128,7 @@ copy_vim_config() {
 }
 
 setup_vim() {
-    install_deps
+    #install_deps
     copy_vim_config
     install_vim_plugin
 }

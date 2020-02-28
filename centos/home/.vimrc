@@ -66,6 +66,8 @@ let g:go_auto_type_info = 1
 " If you want to disable gofmt on save
 " let g:go_fmt_autosave = 0
 
+nmap <leader>gr :GoReferrers<CR>
+
 
 " NERDTree plugin specific commands
 :nnoremap <leader>nt :NERDTreeToggle<CR>

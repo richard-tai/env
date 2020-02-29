@@ -2,122 +2,42 @@
 
 # https://tpaschalis.github.io/vim-go-setup/
 
+install_go() {
+    echo "install golang.."
+    sudo rm -rf /usr/local/go /usr/bin/go
+    wget -c -t 0 https://studygolang.com/dl/golang/go1.14.linux-amd64.tar.gz
+    sudo tar -C /usr/local/ -xzf go1.14.linux-amd64.tar.gz
+
+    # echo 'export PATH=$PATH:/usr/local/go/bin' >> ~/.bashrc
+    
+}
+
 install_deps() {
     echo "install_deps..."
-    sudo dnf install git golang ctags cscope -y
+    install_go
+    sudo dnf install ctags cscope -y
     # for ycm
     sudo dnf install cmake gcc-c++ make python3-devel -y
 }
 
 install_vim_plugin() {
+    
     echo "install_vim_plugin..."
 
-    vim_go_dir=~/.vim/pack/plugins/start/vim-go
-    if [ ! -d ${vim_go_dir}  ]; then
-	git clone https://github.com/fatih/vim-go.git ${vim_go_dir}
-	if [ $? -ne 0 ]; then
-	    echo "error, clone fail"
-	    if [ ! -d ${vim_go_dir} ]; then
-		rm -r ${vim_go_dir}
-	    fi
-	fi
-    fi
+    vim_root=~/.vim
 
-    if [ -d ${vim_go_dir}  ]; then
+    git clone --recursive https://github.com/richard-tai/.vim.git ${vim_root}
+
+    if [ -d ${vim_root}/pack/plugins/start/vim-go ]; then
 	    vim "+set nomore" "+GoInstallBinaries" "+qall"
     fi
 
-    nerdtree_dir=~/.vim/pack/dist/start/nerdtree
-    if [ ! -d ${nerdtree_dir}  ]; then
-	git clone https://github.com/scrooloose/nerdtree.git ${nerdtree_dir}
-	if [ $? -ne 0 ]; then
-	    echo "error, clone fail"
-	    if [ ! -d ${nerdtree_dir} ]; then
-		rm -r ${nerdtree_dir}
-	    fi
-	fi
-    fi
-
-    vim_airline_dir=~/.vim/pack/dist/start/vim-airline
-    if [ ! -d ${vim_airline_dir}  ]; then
-	git clone https://github.com/vim-airline/vim-airline  ${vim_airline_dir}
-	if [ $? -ne 0 ]; then
-	    echo "error, clone fail"
-	    if [ ! -d ${vim_airline_dir} ]; then
-		rm -r ${vim_airline_dir}
-	    fi
-	fi
-    fi
-
-    vim_fugitive_dir=~/.vim/pack/dist/start/vim-fugitive
-    if [ ! -d ${vim_fugitive_dir}  ]; then
-	git clone https://github.com/tpope/vim-fugitive.git ${vim_fugitive_dir}
-	if [ $? -ne 0 ]; then
-	    echo "error, clone fail"
-	    if [ ! -d ${vim_fugitive_dir} ]; then
-		rm -r ${vim_fugitive_dir}
-	    fi
-	fi
-    fi
-
-    tagbar_dir=~/.vim/pack/dist/start/tagbar
-    if [ ! -d ${tagbar_dir}  ]; then
-	git clone https://github.com/majutsushi/tagbar.git ${tagbar_dir}
-	if [ $? -ne 0 ]; then
-	    echo "error, clone fail"
-	    if [ ! -d ${tagbar_dir} ]; then
-		rm -r ${tagbar_dir}
-	    fi
-	fi
-    fi
-
-    ctrlp_dir=~/.vim/pack/dist/start/ctrlp
-    if [ ! -d ${ctrlp_dir}  ]; then
-	git clone https://github.com/kien/ctrlp.vim.git ${ctrlp_dir}
-	if [ $? -ne 0 ]; then
-	    echo "error, clone fail"
-	    if [ ! -d ${ctrlp_dir} ]; then
-		rm -r ${ctrlp_dir}
-	    fi
-	fi
-    fi
-
-    taglist_dir=~/.vim/pack/dist/start/taglist
-    if [ ! -d ${taglist_dir}  ]; then
-	git clone https://github.com/vim-scripts/taglist.vim.git ${taglist_dir}
-	if [ $? -ne 0 ]; then
-	    echo "error, clone fail"
-	    if [ ! -d ${taglist_dir} ]; then
-		rm -r ${taglist_dir}
-	    fi
-	fi
-    fi
-
-    delimtMate_dir=~/.vim/pack/dist/start/delimitMate
-    if [ ! -d ${delimtMate_dir}  ]; then
-	git clone https://github.com/Raimondi/delimitMate.git ${delimtMate_dir}
-	if [ $? -ne 0 ]; then
-	    echo "error, clone fail"
-	    if [ ! -d ${delimtMate_dir} ]; then
-		rm -r ${delimtMate_dir}
-	    fi
-	fi
-    fi
-
-    ycm_dir=~/.vim/pack/dist/start/YouCompleteMe
-    if [ ! -d ${ycm_dir}  ]; then
-	git clone --recurse-submodules https://github.com/ycm-core/YouCompleteMe.git ${ycm_dir}
-	if [ $? -ne 0 ]; then
-	    echo "error, clone fail"
-	    if [ ! -d ${ycm_dir} ]; then
-		rm -r ${ycm_dir}
-	    fi
-	else
-	    ex_pwd=$(pwd)
-	    cd ${ycm_dir}
-	    python3 install.py --clang-completer --go-completer
-	    cd ${ex_pwd}
-	fi
+    ycm_dir=${vim_root}/pack/plugins/start/YouCompleteMe
+    if [ ! -d ${ycm_dir} ]; then
+	ex_pwd=$(pwd)
+	cd ${ycm_dir}
+	python3 install.py --clang-completer --go-completer
+	cd ${ex_pwd}
     fi
 }
 

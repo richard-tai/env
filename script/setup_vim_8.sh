@@ -18,6 +18,8 @@ install_deps() {
     sudo dnf install ctags cscope -y
     # for ycm
     sudo dnf install cmake gcc-c++ make python3-devel -y
+    # for markdown preview
+    sudo dnf install nodejs npm -y
 }
 
 install_vim_plugin() {

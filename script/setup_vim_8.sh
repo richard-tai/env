@@ -18,8 +18,6 @@ install_deps() {
     sudo dnf install ctags cscope -y
     # for ycm
     sudo dnf install cmake gcc-c++ make python3-devel -y
-    # for markdown preview
-    sudo dnf install nodejs npm -y
 }
 
 install_vim_plugin() {
@@ -39,6 +37,14 @@ install_vim_plugin() {
 	ex_pwd=$(pwd)
 	cd ${ycm_dir}
 	python3 install.py --clang-completer --go-completer
+	cd ${ex_pwd}
+    fi
+
+    mkdp_dir=${vim_root}/pack/plugins/start/markdown-preview
+    if [ ! -d ${mkdp_dir} ]; then
+	ex_pwd=$(pwd)
+	cd ${mkdp_dir}/app
+	bash install.sh
 	cd ${ex_pwd}
     fi
 }

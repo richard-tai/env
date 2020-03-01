@@ -68,9 +68,9 @@ let g:go_auto_type_info = 1
 
 
 " go guru
-nmap <leader>gr :GoReferrers<CR>
-nmap <leader>gc :GoCallers<CR>
-nmap <leader>gi :GoImplements<CR>
+autocmd FileType go nmap <leader>gr :GoReferrers<CR>
+autocmd FileType go nmap <leader>gc :GoCallers<CR>
+autocmd FileType go nmap <leader>gi :GoImplements<CR>
 
 " https://github.com/fatih/vim-go/issues/1037
 function! s:go_guru_scope_from_git_root()

@@ -66,6 +66,12 @@ let g:go_auto_type_info = 1
 " If you want to disable gofmt on save
 " let g:go_fmt_autosave = 0
 
+" https://github.com/fatih/vim-go/wiki/Tutorial
+let g:go_highlight_types = 1 
+"let g:go_highlight_fields = 1
+let g:go_highlight_functions = 1 
+let g:go_highlight_function_calls = 1 
+
 
 " go guru
 autocmd FileType go nmap <leader>gr :GoReferrers<CR>

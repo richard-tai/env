@@ -67,6 +67,18 @@ let g:go_auto_type_info = 1
 " let g:go_fmt_autosave = 0
 
 nmap <leader>gr :GoReferrers<CR>
+nmap <leader>gc :GoCallers<CR>
+
+" go guru
+" https://github.com/fatih/vim-go/issues/1037
+function! s:go_guru_scope_from_git_root()
+  let gitroot = system("git rev-parse --show-toplevel | tr -d '\n'")
+  let pattern = escape(go#util#gopath() . "/src/", '\ /')
+  " return substitute(gitroot, pattern, "", "") . "/... -vendor/"
+  let guru_scope = substitute(gitroot, pattern, "", "") 
+  return  guru_scope . "/...,". "-" . guru_scope . "/vendor/..."
+endfunction
+au FileType go silent exe "GoGuruScope " . s:go_guru_scope_from_git_root()
 
 
 " NERDTree plugin specific commands
@@ -144,6 +156,7 @@ let Tlist_WinWidth=60
 
 " YouCompleteMe
 " https://zhuanlan.zhihu.com/p/33046090
+let g:ycm_confirm_extra_conf = 0
 let g:ycm_add_preview_to_completeopt = 0
 let g:ycm_show_diagnostics_ui = 0
 let g:ycm_server_log_level = 'info'

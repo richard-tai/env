@@ -66,10 +66,12 @@ let g:go_auto_type_info = 1
 " If you want to disable gofmt on save
 " let g:go_fmt_autosave = 0
 
-nmap <leader>gr :GoReferrers<CR>
-nmap <leader>gc :GoCallers<CR>
 
 " go guru
+nmap <leader>gr :GoReferrers<CR>
+nmap <leader>gc :GoCallers<CR>
+nmap <leader>gi :GoImplements<CR>
+
 " https://github.com/fatih/vim-go/issues/1037
 function! s:go_guru_scope_from_git_root()
   let gitroot = system("git rev-parse --show-toplevel | tr -d '\n'")

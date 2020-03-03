@@ -8,7 +8,7 @@ if [[ ! -d ~/github/ ]]; then
     mkdir -p ~/github
 fi
 
-vim_name=vim-8.2.0236
+vim_name=v8.2.0348
 wget_file_with_cache https://github.com/vim/vim/archive/${vim_name}.zip ~/github/vim.zip
 
 cd ~/github/

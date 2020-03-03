@@ -5,9 +5,8 @@
 install_go() {
     echo "install golang.."
     sudo rm -rf /usr/local/go /usr/bin/go
-    wget -c -t 0 https://studygolang.com/dl/golang/go1.14.linux-amd64.tar.gz
+    wget -c -t 0 https://dl.google.com/go/go1.14.linux-amd64.tar.gz
     sudo tar -C /usr/local/ -xzf go1.14.linux-amd64.tar.gz
-
     # echo 'export PATH=$PATH:/usr/local/go/bin' >> ~/.bashrc
     
 }
@@ -33,7 +32,7 @@ install_vim_plugin() {
     fi
 
     ycm_dir=${vim_root}/pack/plugins/start/YouCompleteMe
-    if [ ! -d ${ycm_dir} ]; then
+    if [ -d ${ycm_dir} ]; then
 	ex_pwd=$(pwd)
 	cd ${ycm_dir}
 	python3 install.py --clang-completer --go-completer
@@ -41,7 +40,7 @@ install_vim_plugin() {
     fi
 
     mkdp_dir=${vim_root}/pack/plugins/start/markdown-preview
-    if [ ! -d ${mkdp_dir} ]; then
+    if [ -d ${mkdp_dir} ]; then
 	ex_pwd=$(pwd)
 	cd ${mkdp_dir}/app
 	bash install.sh

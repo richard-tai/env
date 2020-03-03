@@ -39,7 +39,7 @@ install_vim_plugin() {
 	cd ${ex_pwd}
     fi
 
-    mkdp_dir=${vim_root}/pack/plugins/start/markdown-preview
+    mkdp_dir=${vim_root}/pack/plugins/start/markdown-preview.nvm
     if [ -d ${mkdp_dir} ]; then
 	ex_pwd=$(pwd)
 	cd ${mkdp_dir}/app

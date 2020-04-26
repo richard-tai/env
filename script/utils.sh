@@ -10,6 +10,36 @@ if [[ $? -eq 0 ]]; then
     git config --global http.postBuffer 1048576000
 fi
 
+function get_os_version()
+{
+    if [ -f /etc/issue ]; then
+        echo $(cat /etc/issue | head -n 1 | awk '{ print $2 }')
+        return 0
+    fi  
+
+    if [ -f /etc/redhat-release ]; then
+        echo $(cat /etc/redhat-release | head -n 1 | awk '{ print $4 }')
+        return 0
+    fi  
+
+    echo "Unkown"
+}
+
+function get_os_name()
+{
+    if [ -f /etc/issue ]; then
+        echo $(cat /etc/issue | head -n 1 | awk '{ print $1}')
+        return 0
+    fi  
+
+    if [ -f /etc/redhat-release ]; then
+        echo $(cat /etc/redhat-release | head -n 1 | awk '{ print $1 }')
+        return 0
+    fi  
+
+    echo "Unkown"
+}
+
 
 function get_file_extenstion()
 {

@@ -121,6 +121,9 @@ let g:airline_symbols.whitespace = 'Ξ'
 
 " tagbar
 nmap <leader>tb :TagbarToggle<CR>
+let g:tagbar_autopreview = 1 
+let g:tagbar_sort = 0
+
 
 " cscope
 if has("cscope")

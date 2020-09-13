@@ -7,13 +7,35 @@ source utils.sh
 install_go() {
     echo "install golang.."
     sudo rm -rf /usr/local/go /usr/bin/go
-    wget -c -t 0 https://dl.google.com/go/go1.14.linux-amd64.tar.gz
+	if [ ! -f go1.14.linux-amd64.tar.gz ]; then
+		wget -c -t 0 https://dl.google.com/go/go1.14.linux-amd64.tar.gz
+	fi
     sudo tar -C /usr/local/ -xzf go1.14.linux-amd64.tar.gz
     go_path=$(which go)
-    if [ $go_path != "/usr/local/go/bin/go" ]; then
+    if [ "$go_path" != "/usr/local/go/bin/go" ]; then
         echo 'export PATH=$PATH:/usr/local/go/bin' >> ~/.bashrc
         source ~/.bashrc
     fi  
+
+    go env -w GOPROXY=https://goproxy.cn,direct
+
+    #gopath=~/go
+    #git clone https://github.com/golang/tools.git ${gopath}/src/golang.org/x/tools
+    #git clone https://github.com/golang/lint.git ${gopath}/src/golang.org/x/lint
+    #git clone https://github.com/golang/mod.git ${gopath}/src/golang.org/x/mod
+    #git clone https://github.com/golang/xerrors.git ${gopath}/src/golang.org/x/xerrors
+    #git clone https://github.com/golang/net.git ${gopath}/src/golang.org/x/net
+
+    #echo "install go tool..."
+    #cd $gopath
+    #go install golang.org/x/lint/golint
+    #echo "golint installed"
+    #go install golang.org/x/tools/cmd/gorename
+    #echo "gorename installed"
+    #go install golang.org/x/tools/cmd/godoc
+    #echo "godoc installed"
+    #go install golang.org/x/tools/cmd/guru
+    #echo "guru installed"
 }
 
 install_deps() {
@@ -24,7 +46,9 @@ install_deps() {
     echo [$os] [$version] ----------------------------
 
     if [ $os == "Ubuntu" ]; then
-        if [ $version == "20.04" ]; then
+	sudo apt-get update
+
+        if [ "${version:0:5}" == "20.04" ]; then
             sudo apt-get install -y ctags cscope
             # for ycm
             sudo apt-get install -y cmake g++ make python3-dev
@@ -70,6 +94,8 @@ install_vim_plugin() {
 	bash install.sh
 	cd ${ex_pwd}
     fi
+
+	go get -u github.com/jstemmer/gotags
 }
 
 
@@ -87,4 +113,5 @@ setup_vim() {
 #################################
 
 setup_vim
+#install_go
 

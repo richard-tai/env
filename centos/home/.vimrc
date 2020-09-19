@@ -96,6 +96,7 @@ au FileType go silent exe "GoGuruScope " . s:go_guru_scope_from_git_root()
 :nnoremap <leader>nt :NERDTreeToggle<CR>
 "autocmd vimenter * NERDTree
 
+:nnoremap <leader>be :BufExplorer<CR>
 
 " air-line plugin specific commands
 let g:airline_powerline_fonts = 1

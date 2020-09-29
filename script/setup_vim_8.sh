@@ -57,6 +57,9 @@ install_deps() {
             # for ycm
             sudo apt-get install -y cmake gcc-c++ make python3-devel
         fi
+	
+	# for markdown preview
+	sudo apt-get install -y nodejs npm yarn
     fi  
 
     if [ $os == "CentOS" ]; then
@@ -87,7 +90,7 @@ install_vim_plugin() {
 	cd ${ex_pwd}
     fi
 
-    mkdp_dir=${vim_root}/pack/plugins/start/markdown-preview.nvm
+    mkdp_dir=${vim_root}/pack/plugins/start/markdown-preview.nvim
     if [ -d ${mkdp_dir} ]; then
 	ex_pwd=$(pwd)
 	cd ${mkdp_dir}/app
@@ -95,7 +98,7 @@ install_vim_plugin() {
 	cd ${ex_pwd}
     fi
 
-	go get -u github.com/jstemmer/gotags
+    go get -u github.com/jstemmer/gotags
 }
 
 

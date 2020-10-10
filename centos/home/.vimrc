@@ -10,6 +10,11 @@ set autowriteall
 
 let mapleader=";"
 
+" fix vim-go cpu high
+set re=1
+set ttyfast
+set lazyredraw
+
 syntax on
 colo pablo
 

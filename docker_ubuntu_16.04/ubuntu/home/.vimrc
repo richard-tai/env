@@ -63,6 +63,30 @@ nmap <C-_>f :cs find f <C-R>=expand("<cfile>")<CR><CR>
 nmap <C-_>i :cs find i ^<C-R>=expand("<cfile>")<CR>$<CR>
 nmap <C-_>d :cs find d <C-R>=expand("<cword>")<CR><CR>
 
+
+"==== gtags ===================================================================
+source ~/.vim/gtags.vim
+let $GTAGSLABEL = 'native-pygments'
+let $GTAGSCONF = '/usr/local/share/gtags/gtags.conf'
+set cscopetag " 使用 cscope 作为 tags 命令
+set cscopeprg='gtags-cscope' " 使用 gtags-cscope 代替 cscope
+
+nmap <C-_>o :copen<CR>
+nmap <C-_>c :cclose<CR>
+nmap <C-_>n :cn<CR>
+nmap <C-_>p :cp<CR>
+
+function! LoadDatabase()
+        let db = findfile("GTAGS", ".;")
+        if (!empty(db))
+                set nocscopeverbose
+                exe "cs add " . db
+                set cscopeverbose
+        endif
+endfunction
+autocmd BufEnter *.[ch] call LoadDatabase()
+
+
 nnoremap <c-]> g<c-]>
 vnoremap <c-]> g<c-]>
 

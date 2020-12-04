@@ -6,18 +6,16 @@ source utils.sh
 
 install_go() {
     echo "install golang.."
-    sudo rm -rf /usr/local/go /usr/bin/go
-	if [ ! -f go1.14.linux-amd64.tar.gz ]; then
-		wget -c -t 0 https://dl.google.com/go/go1.14.linux-amd64.tar.gz
-	fi
+    sudo rm -rf /usr/local/bin/go /usr/bin/go
+    sudo rm -rf /usr/local/bin/gofmt /usr/bin/gofmt
+    if [ ! -f go1.14.linux-amd64.tar.gz ]; then
+	wget -c -t 0 https://dl.google.com/go/go1.14.linux-amd64.tar.gz
+    fi
     sudo tar -C /usr/local/ -xzf go1.14.linux-amd64.tar.gz
-    go_path=$(which go)
-    if [ "$go_path" != "/usr/local/go/bin/go" ]; then
-        echo 'export PATH=$PATH:/usr/local/go/bin' >> ~/.bashrc
-        source ~/.bashrc
-    fi  
+    sudo ln -s /usr/local/go/bin/go /usr/local/bin/go
+    sudo ln -s /usr/local/go/bin/gofmt /usr/local/bin/gofmt
 
-    go env -w GOPROXY=https://goproxy.cn,direct
+    #go env -w GOPROXY=https://goproxy.cn,direct
 
     #gopath=~/go
     #git clone https://github.com/golang/tools.git ${gopath}/src/golang.org/x/tools
@@ -48,33 +46,49 @@ install_deps() {
     if [ $os == "Ubuntu" ]; then
 	sudo apt-get update
 
+	sudo apt-get install -y ctags cscope make cmake curl
+
         if [ "${version:0:5}" == "20.04" ]; then
-            sudo apt-get install -y ctags cscope
             # for ycm
-            sudo apt-get install -y cmake g++ make python3-dev
+            sudo apt-get install -y g++ python3-dev
         else
-            sudo apt-get install -y ctags cscope
             # for ycm
-            sudo apt-get install -y cmake gcc-c++ make python3-devel
+            sudo apt-get install -y gcc-c++ python3-devel
         fi
 	
 	# for markdown preview
 	sudo apt-get install -y nodejs npm yarn
     fi  
+}
 
-    if [ $os == "CentOS" ]; then
-        sudo dnf install ctags cscope -y
-        # for ycm
-        sudo dnf install cmake gcc-c++ make python3-devel -y
-    fi  
+vim_root=~/.vim
 
+install_gtags() {
+    go_path=$(which global)
+    if [ "$go_path" != "" ]; then
+	return
+    fi
+
+    sudo ln -s /usr/bin/python3 /usr/bin/python
+    curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
+    python get-pip.py
+    sudo ln -s /home/cat/.local/bin/pip /usr/bin/pip
+    pip install pygments
+    sudo apt install -y libncurses5-dev libncursesw5-dev clang make
+
+    if [ ! -f global-6.6.5.tar.gz ]; then
+	wget http://tamacom.com/global/global-6.6.5.tar.gz
+    fi
+    tar -xzf global-6.6.5.tar.gz
+    cd global-6.6.5/
+    ./configure && make && sudo make install
+    cp gtags.vim ${vim_root}
+    cd ..
 }
 
 install_vim_plugin() {
     
     echo "install_vim_plugin..."
-
-    vim_root=~/.vim
 
     git clone --recursive https://github.com/richard-tai/.vim.git ${vim_root}
 
@@ -86,12 +100,13 @@ install_vim_plugin() {
     if [ -d ${ycm_dir} ]; then
 	ex_pwd=$(pwd)
 	cd ${ycm_dir}
-	python3 install.py --clang-completer --go-completer
+	#python3 install.py --clang-completer --go-completer
 	cd ${ex_pwd}
     fi
 
     mkdp_dir=${vim_root}/pack/plugins/start/markdown-preview.nvim
     if [ -d ${mkdp_dir} ]; then
+	source ~/.bashrc
 	ex_pwd=$(pwd)
 	cd ${mkdp_dir}/app
 	bash install.sh
@@ -99,6 +114,8 @@ install_vim_plugin() {
     fi
 
     go get -u github.com/jstemmer/gotags
+
+    install_gtags
 }
 
 

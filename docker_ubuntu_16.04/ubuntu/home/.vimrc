@@ -26,8 +26,8 @@ let mapleader=";"
 filetype off	" required
 
 
-let g:syntastic_cpp_compiler = 'clang++'
-let g:syntastic_cpp_compiler_options = ' -std=c++11 -stdlib=libc++'
+"let g:syntastic_cpp_compiler = 'clang++'
+"let g:syntastic_cpp_compiler_options = ' -std=c++11 -stdlib=libc++'
 
 "==== ctags ====================================================================
 "map <f4> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR><CR>  
@@ -41,18 +41,6 @@ let g:syntastic_cpp_compiler_options = ' -std=c++11 -stdlib=libc++'
 "set tags=/path/to/tags 
 
 "==== cscope ===================================================================
-"set cscopequickfix=s-,c-,d-,i-,t-,e-    
-if has("cscope")
-    set csprg=/usr/bin/cscope
-    "set csto=1    
-    "set cst    
-    "set nocsverb    
-    " add any database in current directory     
-    if filereadable("cscope.out")
-        cs add cscope.out
-    endif
-    "set csverb    
-endif
 
 nmap <C-_>s :cs find s <C-R>=expand("<cword>")<CR><CR>
 nmap <C-_>g :cs find g <C-R>=expand("<cword>")<CR><CR>
@@ -72,9 +60,11 @@ set cscopetag " 使用 cscope 作为 tags 命令
 set cscopeprg='gtags-cscope' " 使用 gtags-cscope 代替 cscope
 
 nmap <C-_>o :copen<CR>
-nmap <C-_>c :cclose<CR>
+nmap <C-_>x :cclose<CR>
 nmap <C-_>n :cn<CR>
 nmap <C-_>p :cp<CR>
+
+nmap <C-]> :GtagsCursor<CR>
 
 function! LoadDatabase()
         let db = findfile("GTAGS", ".;")
@@ -87,10 +77,19 @@ endfunction
 autocmd BufEnter *.[ch] call LoadDatabase()
 
 
-nnoremap <c-]> g<c-]>
-vnoremap <c-]> g<c-]>
+"nnoremap <c-]> g<c-]>
+"vnoremap <c-]> g<c-]>
 
 nnoremap <leader>ctcs :!find -L android/ linux/ \| grep -E '.cpp$\|.c$\|\.h$\|\.java$\|\.ams$' > cscope.files;<CR> :!ctags -R --c++-kinds=+p+l+x+c+d+e+f+g+m+n+s+t+u+v --fields=+liaS --extra=+q android/;<CR> cscope -Rkbq;<CR> :cs add cscope.out<CR>  
+
+
+" colorscheme wombat
+colorscheme molokai
+
+"自动补全
+let g:ycm_server_python_interpreter='/usr/bin/python'
+let g:ycm_global_ycm_extra_conf='~/.vim/ycm_extra_conf.py'
+" let g:ycm_collect_identifiers_from_tag_files = 1 "使用ctags生成的tags文件"
 
 
 "==== vundle pugin ====================================================================
@@ -107,38 +106,9 @@ call vundle#begin() " 安装的所有插件
 
 Plugin 'VundleVim/Vundle.vim' " 必须安装，let Vundle manage Vundle, required
 
-Plugin 'flazz/vim-colorschemes' "主题
+"Plugin 'rdnetto/YCM-Generator'
 
-Plugin 'Lokaltog/vim-powerline' "底部状态栏
-
-Plugin 'scrooloose/nerdtree' "文件目录
-
-Plugin 'kien/ctrlp.vim' "快速查找
-
-"Plugin 'scrooloose/nerdcommenter' "快速注释
-"Plug 'iamcco/mathjax-support-for-mkdp'
-"Plug 'iamcco/markdown-preview.vim'
-
-"自动补全
-Plugin 'Shougo/neocomplcache.vim'
-let g:ycm_server_python_interpreter='/usr/bin/python'
-"---- ycm error fix ----
-" 1. cd .vim/bundle/YouCompleteMe
-" 2. ./install.sh --clang-completer
-let g:ycm_global_ycm_extra_conf='~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
-let g:ycm_collect_identifiers_from_tag_files = 1 "使用ctags生成的tags文件"
-
-Plugin 'rdnetto/YCM-Generator'
-
-Plugin 'jiangmiao/auto-pairs' "括号补全
-
-Plugin 'Valloric/YouCompleteMe'
-
-Plugin 'Syntastic' "语法分析
-
-Plugin 'taglist.vim'
-
-Plugin 'jlanzarotta/bufexplorer'
+"Plugin 'Syntastic' "语法分析
 
 call vundle#end()            " required
 
@@ -159,8 +129,8 @@ nnoremap <leader>jd :YcmCompleter GoToDefinitionElseDeclaration<CR>
 filetype on
 filetype plugin on
 
-syntax enable
-syntax on
+"syntax enable
+"syntax on
 
 " ctrlp setup
 set wildignore+=*/.git/*,*/.hg/*,*/.svn/*
@@ -183,3 +153,4 @@ let Tlist_Exit_OnlyWindow=1 "当taglist是最后一个分割窗口时，自动�
 let Tlist_WinWidth=60
 "vertical resize -20
 
+nmap <Leader>tb :TagbarToggle<CR>

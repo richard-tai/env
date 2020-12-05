@@ -6,6 +6,12 @@ source utils.sh
 
 install_go() {
     echo "install golang.."
+	go_path=$(which go)
+	if [ "${go_path}" != "" ]; then
+		go version
+		return
+	fi
+
     sudo rm -rf /usr/local/bin/go /usr/bin/go
     sudo rm -rf /usr/local/bin/gofmt /usr/bin/gofmt
     if [ ! -f go1.14.linux-amd64.tar.gz ]; then
@@ -15,7 +21,7 @@ install_go() {
     sudo ln -s /usr/local/go/bin/go /usr/local/bin/go
     sudo ln -s /usr/local/go/bin/gofmt /usr/local/bin/gofmt
 
-    #go env -w GOPROXY=https://goproxy.cn,direct
+    go env -w GOPROXY=https://goproxy.cn,direct
 
     #gopath=~/go
     #git clone https://github.com/golang/tools.git ${gopath}/src/golang.org/x/tools
@@ -132,6 +138,8 @@ setup_vim() {
 
 #################################
 
-setup_vim
+#setup_vim
 #install_go
+#install_gtags
+install_vim_plugin
 

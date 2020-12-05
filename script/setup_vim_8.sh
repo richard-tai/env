@@ -100,7 +100,7 @@ install_vim_plugin() {
     if [ -d ${ycm_dir} ]; then
 	ex_pwd=$(pwd)
 	cd ${ycm_dir}
-	#python3 install.py --clang-completer --go-completer
+	python3 install.py --clang-completer --go-completer
 	cd ${ex_pwd}
     fi
 

@@ -1,39 +1,70 @@
 #!/usr/bin/env bash
 
+#set -o nounset    # error when referencing undefined variable
+#set -o errexit    # exit when command fails
+
+BOLD="$(tput bold 2>/dev/null || echo '')"
+GREY="$(tput setaf 0 2>/dev/null || echo '')"
+BLUE="$(tput setaf 4 2>/dev/null || echo '')"
+RED="$(tput setaf 1 2>/dev/null || echo '')"
+NO_COLOR="$(tput sgr0 2>/dev/null || echo '')"
+YELLOW="$(tput setaf 3 2>/dev/null || echo '')"
+
+error() {
+  printf "${RED} $@${NO_COLOR}\n" >&2
+}
+
+warn() {
+  printf "${YELLOW}! $@${NO_COLOR}\n"
+}
+
+info() {
+  printf "${BLUE} $@${NO_COLOR}\n"
+}
+
 ## global variable
-sudo_passwd=Cat#0987
+g_os_name=""
+g_os_version=""
 
-
-## config
-which git
-if [[ $? -eq 0 ]]; then
-    git config --global http.postBuffer 1048576000
-fi
 
 function get_os_version()
 {
+	if [ "${g_os_version}" != "" ]; then
+		echo ${g_os_version}
+		return 0
+	fi
+
     if [ -f /etc/issue ]; then
-        echo $(cat /etc/issue | head -n 1 | awk '{ print $2 }')
+		g_os_version=$(cat /etc/issue | head -n 1 | awk '{ print $2 }')
+		echo ${g_os_version}
         return 0
     fi  
 
     if [ -f /etc/redhat-release ]; then
-        echo $(cat /etc/redhat-release | head -n 1 | awk '{ print $4 }')
+        g_os_version=$(cat /etc/redhat-release | head -n 1 | awk '{ print $4 }')
+		echo ${g_os_version}
         return 0
     fi  
 
-    echo "Unkown"
+    echo "Unknown"
 }
 
 function get_os_name()
 {
+	if [ "${g_os_name}" != "" ]; then
+		echo ${g_os_name}
+		return 0
+	fi
+
     if [ -f /etc/issue ]; then
-        echo $(cat /etc/issue | head -n 1 | awk '{ print $1}')
+        g_os_name=$(cat /etc/issue | head -n 1 | awk '{ print $1}')
+		echo ${g_os_name}
         return 0
     fi  
 
     if [ -f /etc/redhat-release ]; then
-        echo $(cat /etc/redhat-release | head -n 1 | awk '{ print $1 }')
+        g_os_name=$(cat /etc/redhat-release | head -n 1 | awk '{ print $1 }')
+		echo ${g_os_name}
         return 0
     fi  
 
@@ -133,6 +164,47 @@ function unzip_to_dir() {
     fi
 }
 
+function install_package() {
+	os_name=$(get_os_name)
+	for one in $1; do
+		if hash $one 2>/dev/null; then
+			warn "$one installed before"
+			continue
+		fi
+		info "Installing $one ..."
+		if [ "$os_name" == "Ubuntu" ]; then
+			sudo apt install -y $one
+		elif [ "$os_name" == "Centos" ]; then
+			sudo yum install -y $one
+		fi
+		info "Install $one done"
+
+		if [ "$one" == "git" ]; then
+			git config --global http.postBuffer 1048576000
+		else
+			continue
+		fi
+		info "config $one done"
+	done
+}
+
+function support_python3() {
+	if hash python 2>/dev/null; then
+		output_str=$(python --version)
+		if [ "${output_str:0:8}" == "Python 3" ]; then
+			return 0
+		fi
+	
+	fi
+	return 1
+}
+
 ## unit test
 #echo $(get_file_extenstion aa.bb.cc.tar)
 #echo $(get_file_name aa.bb.cc.tar)
+#install_package "tree git xxx vim"
+
+if ! hash xtig 2>/dev/null; then
+	echo "xxxxxxxxxxxxxxxxxxxxx"
+fi
+

@@ -84,7 +84,8 @@ nnoremap <leader>ctcs :!find -L android/ linux/ \| grep -E '.cpp$\|.c$\|\.h$\|\.
 
 
 " colorscheme wombat
-colorscheme molokai
+" colorscheme molokai
+source ~/.vim/pack/plugins/start/vim-colorschemes/colors/molokai.vim
 
 "自动补全
 let g:ycm_server_python_interpreter='/usr/bin/python'

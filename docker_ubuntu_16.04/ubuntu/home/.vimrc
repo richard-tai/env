@@ -34,7 +34,7 @@ filetype off	" required
 
 "第一个命令里的分号是必不可少的。这个命令让vim首先在当前目录里寻找tags文件，如果没有找到  
 "tags文件，或者没有找到对应的目标，就到父目录 中查找，一直向上递归。
-"因为tags文件中记录的>路径总是相对于tags文件所在的路径，所以要使用第二个设置项来改变vim的当前目录。   
+"因为tags文件中记录的>路径总是相对于tags文件所在的路径，所以要使用第二个设置项来改变vim的当前目录。
 "set tags=tags;  
 "set autochdir  
 "绝对路径  
@@ -64,7 +64,7 @@ nmap <C-_>x :cclose<CR>
 nmap <C-_>n :cn<CR>
 nmap <C-_>p :cp<CR>
 
-nmap <C-]> :GtagsCursor<CR>
+"nmap <C-]> :GtagsCursor<CR>
 
 function! LoadDatabase()
         let db = findfile("GTAGS", ".;")
@@ -77,8 +77,8 @@ endfunction
 autocmd BufEnter *.[ch] call LoadDatabase()
 
 
-"nnoremap <c-]> g<c-]>
-"vnoremap <c-]> g<c-]>
+nnoremap <c-]> g<c-]>
+vnoremap <c-]> g<c-]>
 
 nnoremap <leader>ctcs :!find -L android/ linux/ \| grep -E '.cpp$\|.c$\|\.h$\|\.java$\|\.ams$' > cscope.files;<CR> :!ctags -R --c++-kinds=+p+l+x+c+d+e+f+g+m+n+s+t+u+v --fields=+liaS --extra=+q android/;<CR> cscope -Rkbq;<CR> :cs add cscope.out<CR>  
 
@@ -89,8 +89,9 @@ source ~/.vim/pack/plugins/start/vim-colorschemes/colors/molokai.vim
 
 "自动补全
 let g:ycm_server_python_interpreter='/usr/bin/python'
-let g:ycm_global_ycm_extra_conf='~/.vim/ycm_extra_conf.py'
+let g:ycm_global_ycm_extra_conf='~/.vim/pack/plugins/start/YouCompleteMe/third_party/ycmd/examples/.ycm_extra_conf.py'
 " let g:ycm_collect_identifiers_from_tag_files = 1 "使用ctags生成的tags文件"
+let g:ycm_show_diagnostics_ui = 0
 
 
 "==== vundle pugin ====================================================================

@@ -83,10 +83,6 @@ vnoremap <c-]> g<c-]>
 nnoremap <leader>ctcs :!find -L android/ linux/ \| grep -E '.cpp$\|.c$\|\.h$\|\.java$\|\.ams$' > cscope.files;<CR> :!ctags -R --c++-kinds=+p+l+x+c+d+e+f+g+m+n+s+t+u+v --fields=+liaS --extra=+q android/;<CR> cscope -Rkbq;<CR> :cs add cscope.out<CR>  
 
 
-" colorscheme wombat
-" colorscheme molokai
-source ~/.vim/pack/plugins/start/vim-colorschemes/colors/molokai.vim
-
 "自动补全
 let g:ycm_server_python_interpreter='/usr/bin/python'
 let g:ycm_global_ycm_extra_conf='~/.vim/pack/plugins/start/YouCompleteMe/third_party/ycmd/examples/.ycm_extra_conf.py'
@@ -156,3 +152,6 @@ let Tlist_WinWidth=60
 "vertical resize -20
 
 nmap <Leader>tb :TagbarToggle<CR>
+
+set runtimepath+=~/.vim/pack/plugins/start/vim-colorschemes/colors/
+"colorscheme molokai

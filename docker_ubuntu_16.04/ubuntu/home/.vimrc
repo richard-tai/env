@@ -29,9 +29,9 @@ filetype off	" required
 "let g:syntastic_cpp_compiler = 'clang++'
 "let g:syntastic_cpp_compiler_options = ' -std=c++11 -stdlib=libc++'
 
-"==== ctags ====================================================================
-"map <f4> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR><CR>  
-
+"==== ctags ==================================================================== 
+" for c++
+" ctags -R --c++-kinds=+p --fields=+iaS --extra=+q --language-force=C++ .
 "第一个命令里的分号是必不可少的。这个命令让vim首先在当前目录里寻找tags文件，如果没有找到  
 "tags文件，或者没有找到对应的目标，就到父目录 中查找，一直向上递归。
 "因为tags文件中记录的>路径总是相对于tags文件所在的路径，所以要使用第二个设置项来改变vim的当前目录。

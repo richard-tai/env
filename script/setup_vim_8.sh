@@ -19,6 +19,7 @@ install_go() {
     if [ ! -f ${go_version}.linux-amd64.tar.gz ]; then
 	wget -c -t 0  https://golang.google.cn/dl/${go_version}.linux-amd64.tar.gz
     fi
+    sudo rm -rf /usr/local/go
     sudo tar -C /usr/local/ -xzf ${go_version}.linux-amd64.tar.gz
     sudo ln -s /usr/local/go/bin/go /usr/local/bin/go
     sudo ln -s /usr/local/go/bin/gofmt /usr/local/bin/gofmt

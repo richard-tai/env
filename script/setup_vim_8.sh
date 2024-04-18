@@ -23,10 +23,11 @@ install_go() {
     sudo tar -C /usr/local/ -xzf ${go_version}.linux-amd64.tar.gz
     sudo ln -s /usr/local/go/bin/go /usr/local/bin/go
     sudo ln -s /usr/local/go/bin/gofmt /usr/local/bin/gofmt
+    sudo chmod 777 -R /usr/local/go
 
     go env -w GO111MODULE=on
     go env -w GOPROXY=https://goproxy.cn,direct
-    go env -w GOBIN=/usr/local/bin/go
+    go env -w GOBIN=/usr/local/go/bin
 
     if ! hash go 2>/dev/null; then
 	warn "go install failed"

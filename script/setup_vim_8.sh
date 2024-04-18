@@ -15,16 +15,23 @@ install_go() {
 
     sudo rm -rf /usr/local/bin/go /usr/bin/go
     sudo rm -rf /usr/local/bin/gofmt /usr/bin/gofmt
-    if [ ! -f go1.21.9.linux-amd64.tar.gz ]; then
-	wget -c -t 0  https://golang.google.cn/dl/go1.21.9.linux-amd64.tar.gz
+    go_version="go1.21.9"
+    if [ ! -f ${go_version}.linux-amd64.tar.gz ]; then
+	wget -c -t 0  https://golang.google.cn/dl/${go_version}.linux-amd64.tar.gz
     fi
-    sudo tar -C /usr/local/ -xzf https://golang.google.cn/dl/go1.21.9.linux-amd64.tar.gz
+    sudo tar -C /usr/local/ -xzf ${go_version}.linux-amd64.tar.gz
     sudo ln -s /usr/local/go/bin/go /usr/local/bin/go
     sudo ln -s /usr/local/go/bin/gofmt /usr/local/bin/gofmt
 
     go env -w GO111MODULE=on
     go env -w GOPROXY=https://goproxy.cn,direct
     go env -w GOBIN=/usr/local/bin/go
+
+    if ! hash go 2>/dev/null; then
+	warn "go install failed"
+	exit 1
+    fi
+    go version
 }
 
 install_go_tool() {
@@ -144,9 +151,9 @@ main() {
 #################################
 
 #setup_vim
-#install_go
+install_go
 #install_gtags
 #install_vim_plugin
 #copy_vim_config
-main
+#main
 

@@ -1,5 +1,7 @@
 " basic
 set nocompatible
+set noeb
+set vb t_vb=
 
 set number
 set hlsearch

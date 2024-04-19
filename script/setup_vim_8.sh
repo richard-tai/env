@@ -5,7 +5,8 @@ source utils.sh
 # https://tpaschalis.github.io/vim-go-setup/
 
 install_go() {
-    info "Installing golang.."
+    go_version="go1.21.9"
+    info "Installing golang $go_verson ..."
 
     if hash go 2>/dev/null; then
 	warn "go installed before"
@@ -15,7 +16,6 @@ install_go() {
 
     sudo rm -rf /usr/local/bin/go /usr/bin/go
     sudo rm -rf /usr/local/bin/gofmt /usr/bin/gofmt
-    go_version="go1.21.9"
     if [ ! -f ${go_version}.linux-amd64.tar.gz ]; then
 	wget -c -t 0  https://golang.google.cn/dl/${go_version}.linux-amd64.tar.gz
     fi
@@ -28,6 +28,13 @@ install_go() {
     go env -w GO111MODULE=on
     go env -w GOPROXY=https://goproxy.cn,direct
     go env -w GOBIN=/usr/local/go/bin
+
+    if path_contain /usr/local/go/bin; then
+	info  "PATH already exist!"
+    else
+	echo 'PATH=$PATH:/usr/local/go/bin' >> ~/.bashrc
+	source ~/.bashrc
+    fi
 
     if ! hash go 2>/dev/null; then
 	warn "go install failed"

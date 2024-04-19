@@ -199,12 +199,33 @@ function support_python3() {
 	return 1
 }
 
+function path_contain() {
+    test_str=$1
+
+    strings=$(echo $PATH | sed 's/:/ /g')
+    for str in $strings
+    do
+        if [ $test_str = $str ]; then
+            return 0
+        fi
+    done
+    return 1
+}
+
 ## unit test
 #echo $(get_file_extenstion aa.bb.cc.tar)
 #echo $(get_file_name aa.bb.cc.tar)
 #install_package "tree git xxx vim"
 
-if ! hash xtig 2>/dev/null; then
-	echo "xxxxxxxxxxxxxxxxxxxxx"
+#if ! hash xtig 2>/dev/null; then
+#	echo "xxxxxxxxxxxxxxxxxxxxx"
+#fi
+
+echo $PATH
+test_path=/usr/local/bin/xx
+if path_contain $test_path; then
+    echo "contiain ..."
+else
+    echo "not contiain ..."
 fi
 

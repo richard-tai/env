@@ -142,6 +142,13 @@ copy_vim_config() {
     cp ../conf/centos/home/.tmux.conf ~/
 }
 
+set_grep_option() {
+    if [ "$GREP_OPTIONS" = "" ]; then
+	echo 'export GREP_OPTIONS="--exclude-dir=\.svn --exclude-dir=\.git --exclude-dir=vendor --exclude=tags --exclude=cscope\.out"' >> ~/.bashrc
+	source ~/.bashrc
+    fi
+}
+
 setup_vim() {
     install_deps
     copy_vim_config

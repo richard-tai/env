@@ -73,7 +73,8 @@ let g:go_auto_type_info = 1
 " If you want to disable gofmt on save
 " let g:go_fmt_autosave = 0
 
-let g:go_def_mode = 'guru'
+" let g:go_def_mode = 'guru'
+let g:go_def_mode = 'godef'
 
 " https://github.com/fatih/vim-go/wiki/Tutorial
 let g:go_highlight_types = 1 

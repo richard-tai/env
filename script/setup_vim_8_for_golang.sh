@@ -71,6 +71,7 @@ install_deps() {
     install_package make cmake clang g++ gcc-c++
     install_package python3 python3-dev python3-devel
     install_package nodejs npm yarn
+    install_package silversearcher-ag
 }
 
 vim_root=~/.vim

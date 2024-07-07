@@ -155,3 +155,6 @@ nmap <Leader>tb :TagbarToggle<CR>
 
 set runtimepath+=~/.vim/pack/plugins/start/vim-colorschemes/colors/
 "colorscheme molokai
+
+"==== ag ==================================================================
+map <leader>ag :Ag
